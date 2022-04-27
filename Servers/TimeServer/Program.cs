@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Net.Sockets;
+using System.Text;
 
 namespace Servers.Time
 {
@@ -30,7 +31,7 @@ namespace Servers.Time
 
             Console.WriteLine("Sending bytes...");
             
-            stream.Write(p);
+            stream.Write(Encoding.ASCII.GetBytes(DateTime.Now.ToString()));
 
             Console.WriteLine("Bytes sent...");
 
