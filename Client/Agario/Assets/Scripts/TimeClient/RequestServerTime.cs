@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Text;
 using UnityEngine;
@@ -8,7 +6,15 @@ public class RequestServerTime : MonoBehaviour
 {
     [SerializeField] private string ipAddress;
     [SerializeField] private int port;
-    
+
+    [SerializeField] private UpdateTimeText updateTimeText;
+    private UpdateTimeText.SetTime setTime;
+
+    public void Start()
+    {
+        setTime = updateTimeText.SetText;
+    }
+
     public void SendRequest()
     {
         TcpClient timeClient = new TcpClient(ipAddress, port);
@@ -18,9 +24,7 @@ public class RequestServerTime : MonoBehaviour
         var buffer = new byte[22];
 
         stream.Read(buffer, 0, 22);
-
-        var resultString = Encoding.ASCII.GetString(buffer);
-
-        Debug.Log(resultString);
+        
+        setTime(Encoding.ASCII.GetString(buffer));
     }
 }

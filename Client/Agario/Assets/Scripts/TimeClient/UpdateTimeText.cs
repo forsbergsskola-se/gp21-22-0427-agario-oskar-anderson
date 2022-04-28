@@ -1,18 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class UpdateTimeText : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private TMP_Text textObject;
+    
+    public delegate void SetTime(string timeString);
+    
+    public void SetText(string text)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        textObject.text = text;
     }
 }
