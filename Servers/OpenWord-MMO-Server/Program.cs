@@ -49,6 +49,7 @@ class Server
                 continue;
             }
 
+            // Check if it contains whitespaces.
             if (receivedBytes.Contains(WhiteSpaceByte))
             {
                 udpClient.Send(MultipleWordsReceivedErrorMessage, MultipleWordsReceivedErrorMessage.Length, remoteEndPoint);
