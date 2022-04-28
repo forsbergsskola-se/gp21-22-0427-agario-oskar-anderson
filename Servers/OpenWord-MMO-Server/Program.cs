@@ -6,6 +6,7 @@ class Server
 {
     private const int Port = 4444;
     private const byte MaximumWordLength = 20;
+    private const byte WhiteSpaceByte = 32;
 
     private static byte[] WordToLongErrorMessage;
     private static byte[] MultipleWordsReceivedErrorMessage;
@@ -16,7 +17,7 @@ class Server
             Encoding.ASCII.GetBytes("Error! Sent word is to long! Please limit your words to a length of " +
                                     MaximumWordLength + " letters!");
         MultipleWordsReceivedErrorMessage =
-            Encoding.ASCII.GetBytes("Error! You are only allowed to send one word at a time!");
+            Encoding.ASCII.GetBytes("Error! You are only allowed to send one word at a time! Spaces are banned!");
     }
 
     static void Main()
@@ -44,14 +45,39 @@ class Server
             if (receivedBytes.Length > MaximumWordLength)
             {
                 udpClient.Send(WordToLongErrorMessage, WordToLongErrorMessage.Length, remoteEndPoint);
+                Console.WriteLine("Denied! Word was to long!");
                 continue;
             }
 
+            if (receivedBytes.Contains(WhiteSpaceByte))
+            {
+                udpClient.Send(MultipleWordsReceivedErrorMessage, MultipleWordsReceivedErrorMessage.Length, remoteEndPoint);
+                Console.WriteLine("Denied! Word had spaces!");
+                continue;
+            }
 
+            Console.WriteLine("Accepted!");
 
-            Console.WriteLine(Encoding.ASCII.GetString(receivedBytes));
+            MergeArraysWithWhiteSpace(ref fullMessage, receivedBytes);
+            
+            udpClient.Send(fullMessage, fullMessage.Length, remoteEndPoint);
+
+            Console.WriteLine(Encoding.ASCII.GetString(fullMessage));
         }
-        
+
         udpClient.Close();
+    }
+
+    private static void MergeArraysWithWhiteSpace(ref byte[] fullMessage, byte[] receivedBytes)
+    {
+        int index = fullMessage.Length;
+        Array.Resize(ref fullMessage, fullMessage.Length + receivedBytes.Length + 1);
+        foreach (var letterByte in receivedBytes)
+        {
+            fullMessage[index] = letterByte;
+            index++;
+        }
+
+        fullMessage[index] = WhiteSpaceByte;
     }
 }
