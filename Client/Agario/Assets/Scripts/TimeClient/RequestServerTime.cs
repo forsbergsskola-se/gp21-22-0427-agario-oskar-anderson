@@ -2,29 +2,32 @@ using System.Net.Sockets;
 using System.Text;
 using UnityEngine;
 
-public class RequestServerTime : MonoBehaviour
+namespace TimeClient
 {
-    [SerializeField] private string ipAddress;
-    [SerializeField] private int port;
-
-    [SerializeField] private UpdateTimeText updateTimeText;
-    private UpdateTimeText.SetTime setTime;
-
-    public void Start()
+    public class RequestServerTime : MonoBehaviour
     {
-        setTime = updateTimeText.SetText;
-    }
+        [SerializeField] private string ipAddress;
+        [SerializeField] private int port;
 
-    public void SendRequest()
-    {
-        TcpClient timeClient = new TcpClient(ipAddress, port);
+        [SerializeField] private UpdateTimeText updateTimeText;
+        private UpdateTimeText.SetTime setTime;
 
-        var stream = timeClient.GetStream();
+        public void Start()
+        {
+            setTime = updateTimeText.SetText;
+        }
 
-        var buffer = new byte[22];
+        public void SendRequest()
+        {
+            TcpClient timeClient = new TcpClient(ipAddress, port);
 
-        stream.Read(buffer, 0, 22);
+            var stream = timeClient.GetStream();
+
+            var buffer = new byte[22];
+
+            stream.Read(buffer, 0, 22);
         
-        setTime(Encoding.ASCII.GetString(buffer));
+            setTime(Encoding.ASCII.GetString(buffer));
+        }
     }
 }

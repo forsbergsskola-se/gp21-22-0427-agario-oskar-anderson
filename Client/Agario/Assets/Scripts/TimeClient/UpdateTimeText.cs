@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class UpdateTimeText : MonoBehaviour
+namespace TimeClient
 {
-    [SerializeField] private TMP_Text textObject;
-    
-    public delegate void SetTime(string timeString);
-    
-    public void SetText(string text)
+    public class UpdateTimeText : MonoBehaviour
     {
-        textObject.text = text;
+        [SerializeField] private TMP_Text textObject;
+
+        public delegate void SetTime(string timeString);
+
+        public void SetText(string text)
+        {
+            textObject.text = text;
+        }
     }
 }
