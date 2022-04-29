@@ -10,6 +10,7 @@ class Server
 
     private static byte[] WordToLongErrorMessage;
     private static byte[] MultipleWordsReceivedErrorMessage;
+    private static byte[] NothingReceivedErrorMessage;
 
     private static async Task CreateByteArraysForErrorMessages()
     {
@@ -18,6 +19,8 @@ class Server
                                     MaximumWordLength + " letters!");
         MultipleWordsReceivedErrorMessage =
             Encoding.ASCII.GetBytes(" Error! You are only allowed to send one word at a time! Spaces are banned!");
+
+        NothingReceivedErrorMessage = Encoding.ASCII.GetBytes(" Error! Nothing received!");
     }
 
     static void Main()
@@ -58,6 +61,14 @@ class Server
             {
                 udpClient.Send(MultipleWordsReceivedErrorMessage, MultipleWordsReceivedErrorMessage.Length, remoteEndPoint);
                 Console.WriteLine("Denied! Word had spaces!");
+                continue;
+            }
+            
+            // Check if empty.
+            if (receivedBytes.Length == 0)
+            {
+                udpClient.Send(NothingReceivedErrorMessage, NothingReceivedErrorMessage.Length, remoteEndPoint);
+                Console.WriteLine("Denied! Nothing was received!");
                 continue;
             }
 
