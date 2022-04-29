@@ -21,7 +21,10 @@ namespace OpenWordClient
 
         public delegate void UpdateText(string s);
         public UpdateText OnUpdateText;
-        
+
+        public delegate void ErrorText(string s);
+        public ErrorText OnError;
+
         public void Start()
         {
             EstablishConnection();
@@ -36,9 +39,7 @@ namespace OpenWordClient
         public void SendAndReceive()
         {
             SendWord();
-            var returnWord = ReceiveWord();
-
-            OnUpdateText.Invoke(returnWord);
+            ReceiveWord();
         }
 
         private void SendWord()
@@ -49,16 +50,15 @@ namespace OpenWordClient
             udpClient.Send(bytes, bytes.Length, endPoint);
         }
 
-        private string ReceiveWord()
+        private void ReceiveWord()
         {
             var receivedBytes = udpClient.Receive(ref endPoint);
 
             if (ErrorCheck(receivedBytes))
             {
-                return "Error";
+                return;
             }
-
-            return Encoding.ASCII.GetString(receivedBytes);
+            OnUpdateText.Invoke(Encoding.ASCII.GetString(receivedBytes));
         }
 
         /// <summary>
@@ -72,6 +72,9 @@ namespace OpenWordClient
             {
                 // There was an error!
                 // TODO: Find out which error, and display a extra warning in that case.
+                
+                OnError.Invoke(Encoding.ASCII.GetString(bytes));
+                
                 return true;
             }
 

@@ -10,6 +10,7 @@ namespace OpenWordClient
     public class UiHandler : MonoBehaviour
     {
         [SerializeField] private TMP_Text outputText;
+        [SerializeField] private TMP_Text errorText;
         [SerializeField] private TMP_InputField inputField;
         [SerializeField] private ServerCommunicator serverCommunicator;
 
@@ -29,6 +30,19 @@ namespace OpenWordClient
         {
             serverCommunicator.OnUpdateText += SetText;
             serverCommunicator.OnGetUserInput += GetInputFieldText;
+            serverCommunicator.OnError += PrintError;
+        }
+
+        private void PrintError(string s)
+        {
+            errorText.text = s;
+            StartCoroutine(ResetErrorText());
+        }
+
+        private IEnumerator ResetErrorText()
+        {
+            yield return new WaitForSeconds(2);
+            errorText.text = "";
         }
     }
 }
