@@ -14,14 +14,16 @@ class Server
     private static async Task CreateByteArraysForErrorMessages()
     {
         WordToLongErrorMessage =
-            Encoding.ASCII.GetBytes("Error! Sent word is to long! Please limit your words to a length of " +
+            Encoding.ASCII.GetBytes(" Error! Sent word is to long! Please limit your words to a length of " +
                                     MaximumWordLength + " letters!");
         MultipleWordsReceivedErrorMessage =
-            Encoding.ASCII.GetBytes("Error! You are only allowed to send one word at a time! Spaces are banned!");
+            Encoding.ASCII.GetBytes(" Error! You are only allowed to send one word at a time! Spaces are banned!");
     }
 
     static void Main()
     {
+        Console.WriteLine("Server starting...");
+        
         // I know there is no way it it worth it to put loading this small things in a separate thread like this. But, I
         // wanted the training so I did it anyway.
         var InitializationTask = CreateByteArraysForErrorMessages();
@@ -37,9 +39,11 @@ class Server
         
         while (true)
         {
+            Console.WriteLine("Waiting for connections...");
+            
             var receivedBytes = udpClient.Receive(ref remoteEndPoint);
             
-            Console.WriteLine($"Received {receivedBytes.Length} bytes.");
+            Console.WriteLine($"Received {receivedBytes.Length} bytes...");
             
             // Check if the received message was to long.
             if (receivedBytes.Length > MaximumWordLength)
