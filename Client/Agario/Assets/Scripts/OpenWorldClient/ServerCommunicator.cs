@@ -10,6 +10,7 @@ namespace OpenWordClient
     public class ServerCommunicator : MonoBehaviour
     {
         private const int Port = 4444;
+        private const byte WhiteSpaceByte = 32;
         [SerializeField] private string ipAddress;
 
         private UdpClient udpClient;
@@ -35,6 +36,9 @@ namespace OpenWordClient
         public void SendAndReceive()
         {
             SendWord();
+            var returnWord = ReceiveWord();
+
+            OnUpdateText.Invoke(returnWord);
         }
 
         private void SendWord()
@@ -47,7 +51,31 @@ namespace OpenWordClient
 
         private string ReceiveWord()
         {
-            return null;
+            var receivedBytes = udpClient.Receive(ref endPoint);
+
+            if (ErrorCheck(receivedBytes))
+            {
+                return "Error";
+            }
+
+            return Encoding.ASCII.GetString(receivedBytes);
+        }
+
+        /// <summary>
+        /// Returns true if a error was found and handled, or false if nothing was found.
+        /// </summary>
+        /// <param name="bytes"></param>
+        /// <returns></returns>
+        private bool ErrorCheck(byte[] bytes)
+        {
+            if (bytes[0] == WhiteSpaceByte)
+            {
+                // There was an error!
+                // TODO: Find out which error, and display a extra warning in that case.
+                return true;
+            }
+
+            return false;
         }
     }
 }
