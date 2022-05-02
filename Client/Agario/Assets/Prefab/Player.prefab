@@ -94,6 +94,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6581774266201722014}
   - component: {fileID: 6581774266201722015}
+  - component: {fileID: 1751445314}
+  - component: {fileID: 1751445315}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -170,6 +172,34 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1751445314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6581774266201722080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4cb39126b50a364f9ffd698c71157ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerCamera: {fileID: 6581774265962546764}
+  playerMove: {fileID: 1751445315}
+--- !u!114 &1751445315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6581774266201722080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2ab07cacb4dcbd4aa31c26f0b49451f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  userTransform: {fileID: 6581774266201722014}
+  movementSpeed: 0.1
 --- !u!1 &6581774266554131231
 GameObject:
   m_ObjectHideFlags: 0

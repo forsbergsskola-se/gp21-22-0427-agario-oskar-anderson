@@ -1,6 +1,13 @@
 Communication to the server with the users position happens on a set interval, maybe 30, or 15 hz.
 Same with communication back from the server.
 
+Server should only send player positions that has actually been updated.
+
+
+
+
+
+
 Server sends out:
 	Food spawning orders together with their positions
 	If a piece of food is eaten.
