@@ -8,7 +8,7 @@ public class ConnectionListener
     public void WaitForLoginAttempts()
     {
         Console.WriteLine("Waiting for connections...");
-        TcpListener tcpListener = new TcpListener(IPAddress.Loopback, ServerSettings.Port);
+        TcpListener tcpListener = new TcpListener(IPAddress.Any, ServerSettings.Port);
         tcpListener.Start();
 
         while (true)
