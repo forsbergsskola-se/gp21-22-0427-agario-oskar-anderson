@@ -15,6 +15,7 @@ public class ConnectionListener
         {
             var client = tcpListener.AcceptTcpClient();
 
+            Console.WriteLine("Found connection...");
             var user = new ConnectedPlayer(client);
         }
     }
