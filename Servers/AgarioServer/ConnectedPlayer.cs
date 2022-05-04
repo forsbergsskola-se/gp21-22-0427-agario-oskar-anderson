@@ -35,6 +35,8 @@ public class ConnectedPlayer
 
             var returnPackage = new NetworkPackage<UserData>((int)NetworkProtocol.RequestType.UserData ,UserData);
             streamWriter.WriteLine(JsonSerializer.Serialize(returnPackage));
+            streamWriter.Flush();
+            Console.WriteLine($"Welcome to the server {UserData.UserName}{UserData.id} with color {UserData.UserColor}");
         }
         else
         {
