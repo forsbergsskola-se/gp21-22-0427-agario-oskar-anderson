@@ -53,19 +53,18 @@ namespace Agario.Networking
                 var userData = package.Value;
                 output =
                     $"Welcome to the server {userData.UserName}{userData.id} with color {userData.UserColor}";
+                
+                var udpClient = new UdpClient(port);
+                var endPoint = new IPEndPoint(IPAddress.Parse(ipAddress), port);
+
+
+                var bytes = Encoding.UTF8.GetBytes(returnJsonMessage);
+                udpClient.Send(bytes, bytes.Length, endPoint);
             }
             else
             {
                 output = "Returned package had incorrect id. " + returnedPackage.Id;
             }
-
-
-            var udpClient = new UdpClient(port);
-            var endPoint = new IPEndPoint(IPAddress.Parse(ipAddress), port);
-
-
-            var bytes = Encoding.UTF8.GetBytes(returnJsonMessage);
-            udpClient.Send(bytes, bytes.Length, endPoint);
         }
 
         public void TestConnectionTEMP()
