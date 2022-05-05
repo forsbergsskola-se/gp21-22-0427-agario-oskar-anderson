@@ -9,6 +9,7 @@ namespace AgarioServer;
 public class ConnectedPlayer
 {
     public UserData UserData { get; private set; }
+    public PlayerData PlayerData;
 
     private GameServer? gameServer;
 
@@ -61,8 +62,13 @@ public class ConnectedPlayer
     
     private void AddPlayerToGameLoop()
     {
+        PlayerData.PlayerId = UserData.id;
+
         // Add the player to the main game loop here.
         // player should be dead as default, letting them pick when to spawn.
+
+        // We probably want to lock the list of connected players so we here wait to add the player right before the 
+        // next loop iteration.
     }
 
     public void SendTcpPackage(NetworkPackage networkPackage)

@@ -11,7 +11,7 @@ public class ServerMain
 
 public class GameServer
 {
-    public List<ConnectedPlayer> Players;
+    public List<ConnectedPlayer> Players = new();
     private const int MaxUpdateTime = 1000 / 60;
 
 
@@ -34,7 +34,7 @@ public class GameServer
         {
             var Timeout = UpdateTimeout();
             
-            
+            SendUpdatedPlayerPositionsAndSizes();
             
             
             if (Timeout.IsCompleted)
@@ -43,11 +43,38 @@ public class GameServer
         }
     }
 
+    
+    
+    /// <summary>
+    /// Sends all current player positions, sizes, and id's to all the clients.
+    /// </summary>
+    private void SendUpdatedPlayerPositionsAndSizes()
+    {
+        PlayerData[] data = new PlayerData[Players.Count];
+        for (int i = 0; i < data.Length; i++)
+        {
+            data[i] = Players[i].PlayerData;
+        }
+
+        NetworkPackage<PlayerData[]> networkPackage =
+            new NetworkPackage<PlayerData[]>((int) NetworkProtocol.RequestType.PlayerData, data);
+
+        SendTcpPackageToAllClients(networkPackage);
+    }
+
 
 
 
     private async Task UpdateTimeout()
     {
         await Task.Delay(MaxUpdateTime);
+    }
+
+    private void SendTcpPackageToAllClients(NetworkPackage networkPackage)
+    {
+        foreach (var connectedPlayer in Players)
+        {
+            connectedPlayer.SendTcpPackage(networkPackage);
+        }
     }
 }

@@ -7,10 +7,11 @@ public class ConnectionListener
 {
     public void WaitForLoginAttempts(GameServer gameServer)
     {
-        Console.WriteLine("Waiting for connections...");
         TcpListener tcpListener = new TcpListener(IPAddress.Any, ServerSettings.Port);
         tcpListener.Start();
 
+        Console.WriteLine("Waiting for connections on: " + tcpListener.LocalEndpoint);
+        
         while (true)
         {
             var client = tcpListener.AcceptTcpClient();

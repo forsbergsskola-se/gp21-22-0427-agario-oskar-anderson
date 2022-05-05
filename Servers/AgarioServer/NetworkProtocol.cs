@@ -9,5 +9,6 @@ public class NetworkProtocol
         Login = 0,
         Disconnect = 1,
         UserData = 2,
+        PlayerData = 3,
     }
 }
