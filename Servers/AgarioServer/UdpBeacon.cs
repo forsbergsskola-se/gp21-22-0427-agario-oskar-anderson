@@ -1,15 +1,28 @@
 ﻿using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Text.Json;
 
 namespace AgarioServer;
 
 public class UdpBeacon
 {
-    public UdpClient UdpClient = new UdpClient(ServerSettings.Port);
-
+    private GameServer gameServer;
+    
+    public UdpClient UdpClient = new(ServerSettings.Port);
     private Dictionary<IPEndPoint, ConnectedPlayer> clientEndpoints = new();
+    
+    private readonly JsonSerializerOptions serializeAllFields = new() {IncludeFields = true};
 
+
+
+    public UdpBeacon(GameServer gameServer)
+    {
+        this.gameServer = gameServer;
+    }
+    
+    
+    
     public void ListenForPackages()
     {
         IPEndPoint remoteEndpoint = null;
@@ -17,19 +30,28 @@ public class UdpBeacon
 
         if (clientEndpoints.ContainsKey(remoteEndpoint))
         {
-            // If package sender is known: Send package to appropriate ConnectedPlayer
+            // If package sender is known: Set the correct playerdata to the package information.
+            // TODO: We want to add a package id check to make sure the received package actually is a PlayerData one.
+            
+            // TODO: This will eventually be replaced to handle a different data type for both food eaten and PlayerData
+            
+            var playerData = JsonSerializer.Deserialize<NetworkPackage<PlayerData>>(Json).Value;
+            clientEndpoints[remoteEndpoint].PlayerData = playerData;
         }
         else
         {
-            
-            // If not known:
-            // Check package for player id
-            // If a valid id is found and that player does not have a endpoint 
-            // Set this endpoint as that players endpoint
-            // If they do
-            // Discard this package as it was not sent by the correct user.
-            // If not found
-            // Discard package for wrong format.
+            var package = JsonSerializer.Deserialize<NetworkPackage>(Json);
+
+            if (package.Id == (int) NetworkProtocol.RequestType.Login)
+            {
+                var userData = JsonSerializer.Deserialize<NetworkPackage<UserData>>(Json, serializeAllFields).Value;
+
+                var possibleConnectedPlayer = gameServer.PendingConnections.First(x => x.PlayerData.PlayerId == userData.id);
+                if (possibleConnectedPlayer != null)
+                {
+                    clientEndpoints[remoteEndpoint] = possibleConnectedPlayer;
+                }
+            }
         }
     }
 }

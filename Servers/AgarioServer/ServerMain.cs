@@ -9,18 +9,33 @@ public class ServerMain
     }
 }
 
+
+
 public class GameServer
 {
+    public List<ConnectedPlayer> PendingConnections = new();
+    
     public List<ConnectedPlayer> Players = new();
     private const int MaxUpdateTime = 1000 / 60;
 
 
     public void StartServer()
     {
+        var udpBeacon = new UdpBeacon(this);
+        
+        // Main server loop.
         new Thread(ServerLoop).Start();
+        
+        // Udp listener handling accepting common data from players.
         new Thread(() =>
         {
-            new ConnectionListener().WaitForLoginAttempts(this, new UdpBeacon());
+            udpBeacon.ListenForPackages();
+        }).Start();
+        
+        // Tcp listener handling new connections from possible players.
+        new Thread(() =>
+        {
+            new ConnectionListener().WaitForLoginAttempts(this, udpBeacon);
         }).Start();
     }
 
