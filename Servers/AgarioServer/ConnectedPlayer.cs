@@ -71,9 +71,19 @@ public class ConnectedPlayer
         // next loop iteration.
     }
 
+    private void WaitForTcpPackages()
+    {
+        
+    }
+
     public void SendTcpPackage(NetworkPackage networkPackage)
     {
         streamWriter.WriteLine(JsonSerializer.Serialize(networkPackage, serializeAllFields));
         streamWriter.Flush();
+    }
+
+    public void SendUdpPackage(NetworkPackage networkPackage)
+    {
+        
     }
 }

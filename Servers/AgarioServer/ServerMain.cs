@@ -59,7 +59,7 @@ public class GameServer
         NetworkPackage<PlayerData[]> networkPackage =
             new NetworkPackage<PlayerData[]>((int) NetworkProtocol.RequestType.PlayerData, data);
 
-        SendTcpPackageToAllClients(networkPackage);
+        SendUdpPackageToAllClients(networkPackage);
     }
 
 
@@ -75,6 +75,14 @@ public class GameServer
         foreach (var connectedPlayer in Players)
         {
             connectedPlayer.SendTcpPackage(networkPackage);
+        }
+    }
+
+    private void SendUdpPackageToAllClients(NetworkPackage networkPackage)
+    {
+        foreach (var connectedPlayer in Players)
+        {
+            connectedPlayer.SendUdpPackage(networkPackage);
         }
     }
 }
