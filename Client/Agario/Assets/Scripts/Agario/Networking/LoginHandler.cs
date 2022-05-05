@@ -20,7 +20,7 @@ namespace Agario.Networking
         public string ReturnMessage2;
         public string output;
         
-        public void ConnectToServer(string ipAddress, int port, string userName, System.Drawing.Color color)
+        public void ConnectToServer(string ipAddress, int port, string userName, Color color)
         {
             tcpClient = new TcpClient(ipAddress, port);
 
@@ -30,7 +30,6 @@ namespace Agario.Networking
 
            
             var streamWriter = new StreamWriter(stream);
-            // var options = new DataContractJsonSerializerSettings(){InludeFields = true};
 
             var networkPackage = new NetworkPackage<User>(0, new User(color, userName));
 
@@ -50,9 +49,10 @@ namespace Agario.Networking
             
             if (returnedPackage.Id == 2)
             {
-                var userData = JsonUtility.FromJson<NetworkPackage<UserData>>(returnJsonMessage).Value;
+                var package = JsonUtility.FromJson<NetworkPackage<UserData>>(returnJsonMessage);
+                var userData = package.Value;
                 output =
-                    $"Welcome to the server {userData.UserName}{userData.id}";
+                    $"Welcome to the server {userData.UserName}{userData.id} with color {userData.UserColor}";
             }
             else
             {
@@ -62,7 +62,7 @@ namespace Agario.Networking
 
         public void TestConnectionTEMP()
         {
-            new Thread(() => ConnectToServer("192.168.1.8", 25565, "Oskar", System.Drawing.Color.Blue)).Start();
+            new Thread(() => ConnectToServer("127.0.0.1", 25565, "Oskar", new Color(23f, 21f, 100f))).Start();
         }
 
         private void Start()
@@ -72,20 +72,18 @@ namespace Agario.Networking
     }
     
     
+    [Serializable]
     public class UserData
     {
         // TODO: Unitys stupid serializer doesn't work well with things that are totally fine for the C# one. 
-        public string UserName { get; private set; }
-        public System.Drawing.Color UserColor { get; private set; }
-        public readonly sbyte id;
-        private static sbyte nextId = 0;
-    
-    
-    
-        public UserData(string userName, System.Drawing.Color userColor)
+        public string UserName;
+        public Color UserColor;
+        public int id;
+
+
+
+        public UserData(string userName, Color userColor)
         {
-            id = nextId;
-            nextId++;
             UserName = userName;
             UserColor = userColor;
         }
@@ -117,9 +115,9 @@ namespace Agario.Networking
     public class User
     {
         public string UserName;
-        public System.Drawing.Color UserColor;
+        public Color UserColor;
 
-        public User(System.Drawing.Color color, string userName = "Player")
+        public User(Color color, string userName = "Player")
         {
             UserName = userName;
             UserColor = color;
