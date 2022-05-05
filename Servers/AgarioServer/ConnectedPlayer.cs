@@ -10,7 +10,7 @@ namespace AgarioServer;
 public class ConnectedPlayer
 {
     public UserData UserData { get; private set; }
-    public PlayerData PlayerData;
+    public PlayerData PlayerData = new PlayerData();
 
     private GameServer? gameServer;
     private UdpBeacon udpBeacon;
@@ -53,6 +53,7 @@ public class ConnectedPlayer
         else
         {
             Console.WriteLine("Connection refused due to incorrect package id...");
+            return;
         }
 
         connectionClient = tcpClient;
