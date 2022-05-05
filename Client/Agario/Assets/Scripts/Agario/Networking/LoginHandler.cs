@@ -58,6 +58,14 @@ namespace Agario.Networking
             {
                 output = "Returned package had incorrect id. " + returnedPackage.Id;
             }
+
+
+            var udpClient = new UdpClient(port);
+            var endPoint = new IPEndPoint(IPAddress.Parse(ipAddress), port);
+
+
+            var bytes = Encoding.UTF8.GetBytes(returnJsonMessage);
+            udpClient.Send(bytes, bytes.Length, endPoint);
         }
 
         public void TestConnectionTEMP()
