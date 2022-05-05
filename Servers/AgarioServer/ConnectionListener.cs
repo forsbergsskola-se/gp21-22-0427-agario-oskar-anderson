@@ -5,7 +5,7 @@ namespace AgarioServer;
 
 public class ConnectionListener
 {
-    public void WaitForLoginAttempts()
+    public void WaitForLoginAttempts(GameServer gameServer)
     {
         Console.WriteLine("Waiting for connections...");
         TcpListener tcpListener = new TcpListener(IPAddress.Any, ServerSettings.Port);
@@ -16,7 +16,7 @@ public class ConnectionListener
             var client = tcpListener.AcceptTcpClient();
 
             Console.WriteLine("Found connection...");
-            var user = new ConnectedPlayer(client);
+            var user = new ConnectedPlayer(client, gameServer);
         }
     }
 }
