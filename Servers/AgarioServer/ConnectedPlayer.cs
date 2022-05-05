@@ -89,6 +89,22 @@ public class UserData
     }
 }
 
+public struct Color
+{
+    public float r;
+    public float g;
+    public float b;
+    public float a;
+
+    public Color(float r, float g, float b, float a = 1)
+    {
+        this.r = r;
+        this.g = g;
+        this.b = b;
+        this.a = a;
+    }
+}
+
 public class NetworkPackage
 {
     public int Id;
@@ -112,5 +128,5 @@ public class NetworkPackage<T> : NetworkPackage
 public class User
 {
     public string UserName = "Player";
-    public Color UserColor = Color.Brown;
+    public Color UserColor = new Color(1, 0, 0);
 }
