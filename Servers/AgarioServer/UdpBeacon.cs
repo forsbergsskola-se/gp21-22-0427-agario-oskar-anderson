@@ -10,7 +10,7 @@ public class UdpBeacon
     private GameServer gameServer;
     
     public UdpClient UdpClient = new(ServerSettings.Port);
-    private Dictionary<IPEndPoint, ConnectedPlayer> clientEndpoints = new();
+    public Dictionary<IPEndPoint, ConnectedPlayer> clientEndpoints = new();
     
     private readonly JsonSerializerOptions serializeAllFields = new() {IncludeFields = true};
 
@@ -50,6 +50,7 @@ public class UdpBeacon
                 if (possibleConnectedPlayer != null)
                 {
                     clientEndpoints[remoteEndpoint] = possibleConnectedPlayer;
+                    possibleConnectedPlayer.PlayerEndpoint = remoteEndpoint;
                 }
             }
         }

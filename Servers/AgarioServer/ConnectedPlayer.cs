@@ -12,8 +12,11 @@ public class ConnectedPlayer
     public UserData UserData { get; private set; }
     public PlayerData PlayerData = new PlayerData();
 
+    public IPEndPoint PlayerEndpoint;
+    
     private GameServer? gameServer;
     private UdpBeacon udpBeacon;
+    
 
     private TcpClient connectionClient;
     private StreamReader streamReader;
@@ -95,6 +98,8 @@ public class ConnectedPlayer
 
     public void SendUdpPackage(NetworkPackage networkPackage)
     {
-        
+        var json = JsonSerializer.Serialize(networkPackage, serializeAllFields);
+        var bytes = Encoding.UTF8.GetBytes(json);
+        udpBeacon.UdpClient.Send(bytes, bytes.Length, PlayerEndpoint);
     }
 }
