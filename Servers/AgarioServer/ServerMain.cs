@@ -20,7 +20,7 @@ public class GameServer
         new Thread(ServerLoop).Start();
         new Thread(() =>
         {
-            new ConnectionListener().WaitForLoginAttempts(this);
+            new ConnectionListener().WaitForLoginAttempts(this, new UdpBeacon());
         }).Start();
     }
 

@@ -5,7 +5,7 @@ namespace AgarioServer;
 
 public class ConnectionListener
 {
-    public void WaitForLoginAttempts(GameServer gameServer)
+    public void WaitForLoginAttempts(GameServer gameServer, UdpBeacon udpBeacon)
     {
         TcpListener tcpListener = new TcpListener(IPAddress.Any, ServerSettings.Port);
         tcpListener.Start();
@@ -17,7 +17,7 @@ public class ConnectionListener
             var client = tcpListener.AcceptTcpClient();
 
             Console.WriteLine("Found connection...");
-            var user = new ConnectedPlayer(client, gameServer);
+            var user = new ConnectedPlayer(client, gameServer, udpBeacon);
         }
     }
 }

@@ -38,6 +38,7 @@ class Server
         IPEndPoint remoteEndPoint = null;
         
         // Again, not something you should probably do in a case like this, but did just for training purposes.
+        // TODO: Why did I use .Wait() here and not await? :/
         InitializationTask.Wait();
         
         while (true)

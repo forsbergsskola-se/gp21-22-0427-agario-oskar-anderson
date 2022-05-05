@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Text.Json;
@@ -12,15 +13,19 @@ public class ConnectedPlayer
     public PlayerData PlayerData;
 
     private GameServer? gameServer;
+    private UdpBeacon udpBeacon;
 
     private TcpClient connectionClient;
     private StreamReader streamReader;
     private StreamWriter streamWriter;
+
+    private UdpClient udpClient;
     
     private readonly JsonSerializerOptions serializeAllFields = new() {IncludeFields = true};
 
-    public ConnectedPlayer(TcpClient tcpClient, GameServer gameServer)
+    public ConnectedPlayer(TcpClient tcpClient, GameServer gameServer, UdpBeacon udpBeacon)
     {
+        this.udpBeacon = udpBeacon;
         this.gameServer = gameServer;
         EstablishConnection(tcpClient);
     }
@@ -52,12 +57,17 @@ public class ConnectedPlayer
 
         connectionClient = tcpClient;
         
+        CreateUdpConnection();
         AddPlayerToGameLoop();
     }
 
     private void CreateUdpConnection()
     {
         // Create a udp connection here to handle common packages like position updates and food information.
+        
+
+        // Try to connect over udp as well. If unsuccessful send a disconnect package over tcp and then quit the
+        // connection.
     }
     
     private void AddPlayerToGameLoop()
