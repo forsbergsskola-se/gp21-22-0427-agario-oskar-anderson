@@ -8,6 +8,9 @@ Player names over or inside the player bubbles.
 Player collides with food and eats it. A request is then sent to the server to check that it was actually in range to be eaten. (A form of anti cheat)
 The server then tells all other clients that that piece of food is gone.
 
+Serverside ConnectedPlayer objects need to have a isConnected field, or similar. Basically a way to stop and garbage collect the class when that player
+leaves or crashes or something else.
+
 
 
 
