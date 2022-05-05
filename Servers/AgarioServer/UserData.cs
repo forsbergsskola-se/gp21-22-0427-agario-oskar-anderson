@@ -7,15 +7,13 @@ public class UserData
 {
     public string UserName { get; private set; }
     public Color UserColor { get; private set; }
-    public readonly sbyte id;
-    private static sbyte nextId = 0;
-    
-    
-    
-    public UserData(string userName, Color userColor)
+    public sbyte id;
+
+
+
+    public UserData(string userName, Color userColor, sbyte id)
     {
-        id = nextId;
-        nextId++;
+        this.id = id;
         UserName = userName;
         UserColor = userColor;
     }

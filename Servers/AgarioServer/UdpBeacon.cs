@@ -2,6 +2,7 @@
 using System.Net.Sockets;
 using System.Text;
 using System.Text.Json;
+using System.Threading.Channels;
 
 namespace AgarioServer;
 
@@ -25,32 +26,42 @@ public class UdpBeacon
     
     public void ListenForPackages()
     {
-        IPEndPoint remoteEndpoint = null;
-        var Json = Encoding.UTF8.GetString(UdpClient.Receive(ref remoteEndpoint));
-
-        if (clientEndpoints.ContainsKey(remoteEndpoint))
+        while (true)
         {
-            // If package sender is known: Set the correct playerdata to the package information.
-            // TODO: We want to add a package id check to make sure the received package actually is a PlayerData one.
-            
-            // TODO: This will eventually be replaced to handle a different data type for both food eaten and PlayerData
-            
-            var playerData = JsonSerializer.Deserialize<NetworkPackage<PlayerData>>(Json).Value;
-            clientEndpoints[remoteEndpoint].PlayerData = playerData;
-        }
-        else
-        {
-            var package = JsonSerializer.Deserialize<NetworkPackage>(Json);
+            Console.WriteLine("Udp: waiting for package...");
+            IPEndPoint remoteEndpoint = null;
+            var Json = Encoding.UTF8.GetString(UdpClient.Receive(ref remoteEndpoint));
+            Console.WriteLine(Json);
+            Console.WriteLine("Udp: received package...");
 
-            if (package.Id == (int) NetworkProtocol.RequestType.Login)
+            if (clientEndpoints.ContainsKey(remoteEndpoint))
             {
-                var userData = JsonSerializer.Deserialize<NetworkPackage<UserData>>(Json, serializeAllFields).Value;
+                Console.WriteLine("Udp: endpoint was known, passing data to connected player...");
+                // If package sender is known: Set the correct playerdata to the package information.
+                // TODO: We want to add a package id check to make sure the received package actually is a PlayerData one.
+            
+                // TODO: This will eventually be replaced to handle a different data type for both food eaten and PlayerData
+            
+                var playerData = JsonSerializer.Deserialize<NetworkPackage<PlayerData>>(Json, serializeAllFields).Value;
+                clientEndpoints[remoteEndpoint].PlayerData = playerData;
+            }
+            else
+            {
+                Console.WriteLine("Udp: endpoint was not known, attempting to add...");
+                var package = JsonSerializer.Deserialize<NetworkPackage>(Json, serializeAllFields);
 
-                var possibleConnectedPlayer = gameServer.PendingConnections.First(x => x.PlayerData.PlayerId == userData.id);
-                if (possibleConnectedPlayer != null)
+                if (package.Id == (int) NetworkProtocol.RequestType.UserData)
                 {
-                    clientEndpoints[remoteEndpoint] = possibleConnectedPlayer;
-                    possibleConnectedPlayer.PlayerEndpoint = remoteEndpoint;
+                    var userData = JsonSerializer.Deserialize<NetworkPackage<UserData>>(Json, serializeAllFields).Value;
+
+                    var possibleConnectedPlayer = gameServer.PendingConnections.First(p => p.UserData.id == userData.id);
+                    if (possibleConnectedPlayer != null)
+                    {
+                        Console.WriteLine("Udp: successfully added new player...");
+                        clientEndpoints[remoteEndpoint] = possibleConnectedPlayer;
+                        possibleConnectedPlayer.PlayerEndpoint = remoteEndpoint;
+                        gameServer.PendingConnections.Remove(possibleConnectedPlayer);
+                    }
                 }
             }
         }

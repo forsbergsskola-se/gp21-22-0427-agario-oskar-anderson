@@ -25,11 +25,15 @@ public class ConnectedPlayer
     private UdpClient udpClient;
     
     private readonly JsonSerializerOptions serializeAllFields = new() {IncludeFields = true};
+    private static sbyte nextId;
 
     public ConnectedPlayer(TcpClient tcpClient, GameServer gameServer, UdpBeacon udpBeacon)
     {
         this.udpBeacon = udpBeacon;
         this.gameServer = gameServer;
+
+        gameServer.PendingConnections.Add(this);
+        
         EstablishConnection(tcpClient);
     }
 
@@ -47,6 +51,10 @@ public class ConnectedPlayer
         {
             Console.WriteLine("Connection was successful...");
             UserData = JsonSerializer.Deserialize<NetworkPackage<UserData>>(jsonMessage, serializeAllFields).Value;
+            
+            // TODO: I don't want this here.
+            UserData.id = nextId;
+            nextId++;
 
             var returnPackage = new NetworkPackage<UserData>((int)NetworkProtocol.RequestType.UserData ,UserData);
             streamWriter.WriteLine(JsonSerializer.Serialize(returnPackage, serializeAllFields));
@@ -78,6 +86,8 @@ public class ConnectedPlayer
     {
         PlayerData.PlayerId = UserData.id;
 
+        
+        
         // Add the player to the main game loop here.
         // player should be dead as default, letting them pick when to spawn.
 
