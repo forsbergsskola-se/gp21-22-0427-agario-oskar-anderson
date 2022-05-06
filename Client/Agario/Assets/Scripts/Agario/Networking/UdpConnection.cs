@@ -1,11 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using Agario.Data;
 using UnityEngine;
+
+using Agario.Data;
+
+
 
 namespace Agario.Networking
 {
@@ -20,10 +21,6 @@ namespace Agario.Networking
             serverEndpoint = new IPEndPoint(IPAddress.Parse(ipAddress), port);
 
             new Thread(UdpListener).Start();
-
-
-            // var bytes = Encoding.UTF8.GetBytes(returnJsonMessage);
-            // udpClient.Send(bytes, bytes.Length, endPoint);
         }
         
         public void UdpListener()

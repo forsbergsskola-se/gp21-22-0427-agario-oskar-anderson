@@ -1,5 +1,8 @@
-using Agario.Data;
 using UnityEngine;
+
+using Agario.Data;
+
+
 
 public class PlayerInformation : MonoBehaviour
 {

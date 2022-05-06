@@ -1,6 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+
 
 namespace Agario.Entities
 {
@@ -12,7 +12,7 @@ namespace Agario.Entities
         {
             float diameter = Mathf.Sqrt(score / Mathf.PI);
             float scale = diameter + 1;
-            transform.localScale = new Vector3(scale, scale, scale);
+            entityTransform.localScale = new Vector3(scale, scale, scale);
         }
     }
 }

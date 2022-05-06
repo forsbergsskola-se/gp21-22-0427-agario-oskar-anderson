@@ -1,12 +1,12 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using System.Net.Sockets;
 using System.Threading;
+using UnityEngine;
+
 using Agario.Data;
 using Agario.Networking;
-using UnityEngine;
+
+
 
 public class TcpConnection : MonoBehaviour
 {

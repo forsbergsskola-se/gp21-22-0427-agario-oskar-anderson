@@ -1,5 +1,7 @@
 using UnityEngine;
 
+
+
 namespace Agario.Entities
 {
     public class Move : MonoBehaviour
