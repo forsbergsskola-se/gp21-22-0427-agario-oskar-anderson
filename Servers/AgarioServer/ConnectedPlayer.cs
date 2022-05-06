@@ -12,24 +12,24 @@ public class ConnectedPlayer
     public UserData UserData { get; private set; }
     public PlayerData PlayerData = new PlayerData();
 
-    public IPEndPoint PlayerEndpoint;
+    
     
     private GameServer? gameServer;
-    private UdpBeacon udpBeacon;
-    
+
+    public UdpConnection UdpConnection;
 
     private TcpClient connectionClient;
     private StreamReader streamReader;
     private StreamWriter streamWriter;
 
-    private UdpClient udpClient;
+    
     
     private readonly JsonSerializerOptions serializeAllFields = new() {IncludeFields = true};
     private static sbyte nextId;
 
     public ConnectedPlayer(TcpClient tcpClient, GameServer gameServer, UdpBeacon udpBeacon)
     {
-        this.udpBeacon = udpBeacon;
+        UdpConnection = new UdpConnection(udpBeacon);
         this.gameServer = gameServer;
 
         gameServer.PendingConnections.Add(this);
@@ -69,11 +69,11 @@ public class ConnectedPlayer
 
         connectionClient = tcpClient;
         
-        CreateUdpConnection();
+        WaitForUdpConnection();
         AddPlayerToGameLoop();
     }
 
-    private void CreateUdpConnection()
+    private void WaitForUdpConnection()
     {
         // Create a udp connection here to handle common packages like position updates and food information.
         
@@ -106,10 +106,5 @@ public class ConnectedPlayer
         streamWriter.Flush();
     }
 
-    public void SendUdpPackage(NetworkPackage networkPackage)
-    {
-        var json = JsonSerializer.Serialize(networkPackage, serializeAllFields);
-        var bytes = Encoding.UTF8.GetBytes(json);
-        udpBeacon.UdpClient.Send(bytes, bytes.Length, PlayerEndpoint);
-    }
+
 }

@@ -97,7 +97,7 @@ public class GameServer
     {
         foreach (var connectedPlayer in Players)
         {
-            connectedPlayer.SendUdpPackage(networkPackage);
+            connectedPlayer.UdpConnection.SendUdpPackage(networkPackage);
         }
     }
 }
