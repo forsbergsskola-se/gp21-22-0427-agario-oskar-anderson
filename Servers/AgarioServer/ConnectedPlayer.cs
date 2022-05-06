@@ -80,14 +80,18 @@ public class ConnectedPlayer
 
         // Try to connect over udp as well. If unsuccessful send a disconnect package over tcp and then quit the
         // connection.
+
+        UdpConnection.UdpConnectionComplete.WaitOne();
     }
     
     private void AddPlayerToGameLoop()
     {
         PlayerData.PlayerId = UserData.id;
+        
+        gameServer.PendingConnections.Remove(this);
+        gameServer.Players.Add(this);
 
-        
-        
+
         // Add the player to the main game loop here.
         // player should be dead as default, letting them pick when to spawn.
 

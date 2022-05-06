@@ -15,6 +15,8 @@ public class UdpConnection
     
     private readonly JsonSerializerOptions serializeAllFields = new() {IncludeFields = true};
 
+    public readonly EventWaitHandle UdpConnectionComplete = new(false, EventResetMode.ManualReset);
+
     public UdpConnection(UdpBeacon udpBeacon)
     {
         this.udpBeacon = udpBeacon;

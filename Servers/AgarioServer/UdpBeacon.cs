@@ -60,7 +60,7 @@ public class UdpBeacon
                         Console.WriteLine("Udp: successfully added new player...");
                         clientEndpoints[remoteEndpoint] = possibleConnectedPlayer;
                         possibleConnectedPlayer.UdpConnection.PlayerEndpoint = remoteEndpoint;
-                        gameServer.PendingConnections.Remove(possibleConnectedPlayer);
+                        possibleConnectedPlayer.UdpConnection.UdpConnectionComplete.Set();
                     }
                 }
             }
