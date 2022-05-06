@@ -39,7 +39,20 @@ public class GameServer
         }).Start();
     }
 
+
+
+    public void AddPlayerToGameLoop(ConnectedPlayer player)
+    {
+        PendingConnections.Remove(player);
+        Players.Add(player);
+
+        var newPlayerPackage = new NetworkPackage<UserData[]>(PackageType.NewUsers, new[] {player.UserData});
+        
+        SendTcpPackageToAllClients(newPlayerPackage);
+    }
     
+
+
     /// <summary>
     /// Main server loop. Handles game updates and other events.
     /// </summary>
@@ -71,10 +84,10 @@ public class GameServer
             data[i] = Players[i].PlayerData;
         }
 
-        NetworkPackage<PlayerData[]> networkPackage =
+        NetworkPackage<PlayerData[]> playersData =
             new NetworkPackage<PlayerData[]>(PackageType.PlayerData, data);
 
-        SendUdpPackageToAllClients(networkPackage);
+        SendUdpPackageToAllClients(playersData);
     }
 
 

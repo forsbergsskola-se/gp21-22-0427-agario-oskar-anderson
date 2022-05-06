@@ -11,25 +11,14 @@ public class ConnectedPlayer
 {
     public UserData UserData;
     public PlayerData PlayerData = new PlayerData();
-
-    
     
     private GameServer? gameServer;
 
     public UdpConnection UdpConnection;
     public TcpConnection TcpConnection;
-
-    // private TcpClient connectionClient;
-    // private StreamReader streamReader;
-    // private StreamWriter streamWriter;
-
     
-    
-    private readonly JsonSerializerOptions serializeAllFields = new() {IncludeFields = true};
     
 
-    
-    
     public ConnectedPlayer(TcpClient tcpClient, GameServer gameServer, UdpBeacon udpBeacon)
     {
         Console.WriteLine("Attempting to establish connection...");
@@ -42,30 +31,27 @@ public class ConnectedPlayer
         // We only need to wait for the Udp connection because it won't finish before a tcp connection has been 
         // established.
         WaitForUdpConnection();
+
+        PlayerData.PlayerId = UserData.id;
+        SendCurrentPlayers();
         
-        AddPlayerToGameLoop();
+        gameServer.AddPlayerToGameLoop(this);
     }
-    
-    
-    
+
+    private void SendCurrentPlayers()
+    {
+        UserData[] userData = new UserData[gameServer.Players.Count];
+        for (int i = 0; i < userData.Length; i++)
+        {
+            userData[i] = gameServer.Players[i].UserData;
+        }
+
+        var currentUsersPackage = new NetworkPackage<UserData[]>(PackageType.NewUsers, userData);
+        TcpConnection.SendTcpPackage(currentUsersPackage);
+    }
     
     private void WaitForUdpConnection()
     {
         UdpConnection.UdpConnectionComplete.WaitOne();
-    }
-    
-    private void AddPlayerToGameLoop()
-    {
-        PlayerData.PlayerId = UserData.id;
-        
-        gameServer.PendingConnections.Remove(this);
-        gameServer.Players.Add(this);
-
-
-        // Add the player to the main game loop here.
-        // player should be dead as default, letting them pick when to spawn.
-
-        // We probably want to lock the list of connected players so we here wait to add the player right before the 
-        // next loop iteration.
     }
 }
