@@ -85,6 +85,7 @@ public class TcpConnection
     public void SendTcpPackage(NetworkPackage networkPackage)
     {
         streamWriter.WriteLine(JsonSerializer.Serialize(networkPackage, serializeAllFields));
+        Console.WriteLine(JsonSerializer.Serialize(networkPackage, serializeAllFields));
         streamWriter.Flush();
     }
 }
