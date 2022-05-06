@@ -39,6 +39,8 @@ public class TcpConnection
                 if (receivedJson == null)
                     return;
 
+                Console.WriteLine("Tcp: " + receivedJson);
+
                 var basePackage = JsonSerializer.Deserialize<NetworkPackage>(receivedJson, serializeAllFields);
 
                 switch (basePackage.Id)
@@ -85,7 +87,7 @@ public class TcpConnection
     public void SendTcpPackage(NetworkPackage networkPackage)
     {
         streamWriter.WriteLine(JsonSerializer.Serialize(networkPackage, serializeAllFields));
-        Console.WriteLine(JsonSerializer.Serialize(networkPackage, serializeAllFields));
+        Console.WriteLine("Tcp send: " + JsonSerializer.Serialize(networkPackage, serializeAllFields));
         streamWriter.Flush();
     }
 }

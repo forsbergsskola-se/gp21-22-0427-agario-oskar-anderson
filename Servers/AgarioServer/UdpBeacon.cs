@@ -31,8 +31,8 @@ public class UdpBeacon
             Console.WriteLine("Udp: waiting for package...");
             IPEndPoint remoteEndpoint = null;
             var Json = Encoding.UTF8.GetString(UdpClient.Receive(ref remoteEndpoint));
-            Console.WriteLine(Json);
             Console.WriteLine("Udp: received package...");
+            Console.WriteLine("Udp: " + Json);
 
             if (clientEndpoints.ContainsKey(remoteEndpoint))
             {
