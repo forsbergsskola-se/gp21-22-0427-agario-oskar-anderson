@@ -10,6 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 9029041994936869619}
   - component: {fileID: 9029041994936869618}
+  - component: {fileID: 5208817221268715794}
+  - component: {fileID: -6412767105499252153}
+  - component: {fileID: 3315821376143046085}
   m_Layer: 0
   m_Name: EnemyPlayer
   m_TagString: Untagged
@@ -85,6 +88,46 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5208817221268715794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9029041994936869517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2ab07cacb4dcbd4aa31c26f0b49451f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  userTransform: {fileID: 9029041994936869619}
+  movementSpeed: 0
+--- !u!114 &-6412767105499252153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9029041994936869517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e237336541d927549ad9c62517012640, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entityTransform: {fileID: 9029041994936869619}
+--- !u!114 &3315821376143046085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9029041994936869517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb42226756531c44aace24535e0e43ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMove: {fileID: 5208817221268715794}
 --- !u!1 &9029041995289267570
 GameObject:
   m_ObjectHideFlags: 0

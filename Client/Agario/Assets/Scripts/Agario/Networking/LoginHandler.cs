@@ -82,7 +82,6 @@ namespace Agario.Networking
     [Serializable]
     public class UserData
     {
-        // TODO: Unitys stupid serializer doesn't work well with things that are totally fine for the C# one. 
         public string UserName;
         public Color UserColor;
         public int id;

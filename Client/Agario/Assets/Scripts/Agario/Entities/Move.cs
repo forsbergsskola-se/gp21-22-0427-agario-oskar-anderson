@@ -21,10 +21,10 @@ namespace Agario.Entities
     
     
         /// <summary>
-        /// Move this GameObject to the provided position.
+        /// Set this GameObject to the provided position.
         /// </summary>
         /// <param name="position"></param>
-        public void MoveToPosition(Vector3 position)
+        public void SetPosition(Vector3 position)
         {
             userTransform.position = position;
         }
