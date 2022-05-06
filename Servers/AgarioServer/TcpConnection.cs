@@ -34,6 +34,10 @@ public class TcpConnection
             try
             {
                 string receivedJson = streamReader.ReadLine();
+                
+                // If the string is null then it means the streamReader has been closed. So stop this listener.
+                if (receivedJson == null)
+                    return;
 
                 var basePackage = JsonSerializer.Deserialize<NetworkPackage>(receivedJson, serializeAllFields);
 
