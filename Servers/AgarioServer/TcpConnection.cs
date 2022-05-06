@@ -33,12 +33,12 @@ public class TcpConnection
             {
                 string receivedJson = streamReader.ReadLine();
 
-                var basePackage = JsonSerializer.Deserialize<NetworkPackage>(receivedJson);
+                var basePackage = JsonSerializer.Deserialize<NetworkPackage>(receivedJson, serializeAllFields);
 
                 switch (basePackage.Id)
                 {
                     case PackageType.Login:
-                        AcceptLoginPackage(JsonSerializer.Deserialize<NetworkPackage<UserData>>(receivedJson));
+                        AcceptLoginPackage(JsonSerializer.Deserialize<NetworkPackage<UserData>>(receivedJson, serializeAllFields));
                         break;
                 }
             }
