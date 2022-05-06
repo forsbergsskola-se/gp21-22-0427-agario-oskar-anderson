@@ -46,7 +46,9 @@ public class TcpConnection
                 switch (basePackage.Id)
                 {
                     case PackageType.Login:
-                        AcceptLoginPackage(JsonSerializer.Deserialize<NetworkPackage<UserData>>(receivedJson, serializeAllFields));
+                        var temp = JsonSerializer.Deserialize<NetworkPackage<UserData>>(receivedJson,
+                            serializeAllFields);
+                        AcceptLoginPackage(temp);
                         break;
                 }
             }
@@ -84,9 +86,10 @@ public class TcpConnection
     
     
     
-    public void SendTcpPackage(NetworkPackage networkPackage)
+    public void SendTcpPackage<T>(NetworkPackage<T> networkPackage)
     {
-        streamWriter.WriteLine(JsonSerializer.Serialize(networkPackage, serializeAllFields));
+        string json = JsonSerializer.Serialize(networkPackage, serializeAllFields);
+        streamWriter.WriteLine(json);
         Console.WriteLine("Tcp send: " + JsonSerializer.Serialize(networkPackage, serializeAllFields));
         streamWriter.Flush();
     }

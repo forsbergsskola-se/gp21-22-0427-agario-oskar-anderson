@@ -78,6 +78,9 @@ public class GameServer
     /// </summary>
     private void SendUpdatedPlayerPositionsAndSizes()
     {
+        if (Players.Count == 0)
+            return;
+
         PlayerData[] data = new PlayerData[Players.Count];
         for (int i = 0; i < data.Length; i++)
         {
@@ -98,7 +101,7 @@ public class GameServer
         await Task.Delay(MaxUpdateTime);
     }
 
-    private void SendTcpPackageToAllClients(NetworkPackage networkPackage)
+    private void SendTcpPackageToAllClients<T>(NetworkPackage<T> networkPackage)
     {
         foreach (var connectedPlayer in Players)
         {
@@ -106,7 +109,7 @@ public class GameServer
         }
     }
 
-    private void SendUdpPackageToAllClients(NetworkPackage networkPackage)
+    private void SendUdpPackageToAllClients<T>(NetworkPackage<T> networkPackage)
     {
         foreach (var connectedPlayer in Players)
         {

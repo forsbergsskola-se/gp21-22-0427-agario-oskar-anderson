@@ -22,7 +22,7 @@ public class UdpConnection
         this.udpBeacon = udpBeacon;
     }
     
-    public void SendUdpPackage(NetworkPackage networkPackage)
+    public void SendUdpPackage<T>(NetworkPackage<T> networkPackage)
     {
         var json = JsonSerializer.Serialize(networkPackage, serializeAllFields);
         Console.WriteLine("Udp send: " + json);

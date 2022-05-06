@@ -1,5 +1,6 @@
 namespace AgarioServer;
 
+
 public class NetworkPackage
 {
     public PackageType Id;
@@ -9,6 +10,7 @@ public class NetworkPackage
         Id = id;
     }
 }
+
 
 public class NetworkPackage<T> : NetworkPackage
 {
