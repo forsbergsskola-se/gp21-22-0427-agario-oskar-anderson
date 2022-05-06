@@ -69,7 +69,7 @@ namespace Agario.Networking
 
         public void TestConnectionTEMP()
         {
-            new Thread(() => ConnectToServer("127.0.0.1", 25565, "Oskar", new Color(23f, 21f, 100f))).Start();
+            new Thread(() => ConnectToServer("192.168.1.248", 25565, "Oskar", new Color(23f, 21f, 100f))).Start();
         }
 
         private void Start()
