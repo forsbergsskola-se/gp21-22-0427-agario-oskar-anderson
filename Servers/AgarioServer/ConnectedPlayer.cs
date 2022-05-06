@@ -40,6 +40,9 @@ public class ConnectedPlayer
 
     private void SendCurrentPlayers()
     {
+        if (gameServer.Players.Count == 0)
+            return;
+        
         UserData[] userData = new UserData[gameServer.Players.Count];
         for (int i = 0; i < userData.Length; i++)
         {
