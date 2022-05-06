@@ -5,6 +5,7 @@ namespace AgarioServer;
 
 public class TcpConnection
 {
+    private ConnectedPlayer connectedPlayer;
     private TcpClient tcpClient;
     private StreamReader streamReader;
     private StreamWriter streamWriter;
@@ -16,9 +17,10 @@ public class TcpConnection
     
     
     
-    public TcpConnection(TcpClient tcpClient)
+    public TcpConnection(TcpClient tcpClient, ConnectedPlayer connectedPlayer)
     {
         this.tcpClient = tcpClient;
+        this.connectedPlayer = connectedPlayer;
         streamReader = new StreamReader(tcpClient.GetStream());
         streamWriter = new StreamWriter(tcpClient.GetStream());
         
@@ -66,6 +68,8 @@ public class TcpConnection
         // TODO: I don't want this here.
         userData.id = nextId;
         nextId++;
+
+        connectedPlayer.UserData = userData;
         
         // Send confirmation package.
         var returnPackage = new NetworkPackage<UserData>(PackageType.UserData, userData);

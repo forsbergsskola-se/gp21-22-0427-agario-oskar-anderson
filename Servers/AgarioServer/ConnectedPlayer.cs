@@ -9,7 +9,7 @@ namespace AgarioServer;
 
 public class ConnectedPlayer
 {
-    public UserData UserData { get; private set; }
+    public UserData UserData;
     public PlayerData PlayerData = new PlayerData();
 
     
@@ -34,7 +34,7 @@ public class ConnectedPlayer
     {
         Console.WriteLine("Attempting to establish connection...");
         UdpConnection = new UdpConnection(udpBeacon);
-        TcpConnection = new TcpConnection(tcpClient);
+        TcpConnection = new TcpConnection(tcpClient, this);
         this.gameServer = gameServer;
 
         gameServer.PendingConnections.Add(this);
