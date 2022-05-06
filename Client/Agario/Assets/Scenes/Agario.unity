@@ -260,6 +260,7 @@ GameObject:
   - component: {fileID: 1172692812}
   - component: {fileID: 1172692809}
   - component: {fileID: 1172692808}
+  - component: {fileID: 1172692813}
   m_Layer: 0
   m_Name: NetworkHandler
   m_TagString: Untagged
@@ -279,6 +280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04a3c64be7fd36d468287135bee6c4cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerInformation: {fileID: 1103087628}
 --- !u!114 &1172692809
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -291,6 +293,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2d565880c1db364294f75a36e8a4375, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerDataUnpacker: {fileID: 1172692808}
+  temp: []
 --- !u!114 &1172692810
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -338,6 +342,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loginHandler: {fileID: 1172692810}
+  remotePlayerSpawner: {fileID: 1172692813}
+  temp: []
+--- !u!114 &1172692813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1172692807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62d3711df8149fc48b576841c1e9b228, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  remotePlayerPrefab: {fileID: 9029041994936869517, guid: fa361e0303bfc0448909b2ebd50a6af9, type: 3}
+  playerDataUnpacker: {fileID: 1172692808}
+  playerInformation: {fileID: 1103087628}
 --- !u!1001 &6581774265528755167
 PrefabInstance:
   m_ObjectHideFlags: 0
