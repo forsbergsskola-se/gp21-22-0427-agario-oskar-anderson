@@ -9,7 +9,8 @@ Player collides with food and eats it. A request is then sent to the server to c
 The server then tells all other clients that that piece of food is gone.
 
 Serverside ConnectedPlayer objects need to have a isConnected field, or similar. Basically a way to stop and garbage collect the class when that player
-leaves or crashes or something else.
+leaves or crashes or something else. Also applies to the threads! We do not want rouge while loops running in the background waiting for a package that
+will never arrive.
 
 
 
