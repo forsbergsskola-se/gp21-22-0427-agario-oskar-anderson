@@ -4,10 +4,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
-using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading;
 using UnityEngine;
+
+using Agario.Data;
+
 
 namespace Agario.Networking
 {
@@ -31,9 +33,9 @@ namespace Agario.Networking
            
             var streamWriter = new StreamWriter(stream);
 
-            var networkPackage = new NetworkPackage<User>(0, new User(color, userName));
+            var networkPackage = new NetworkPackage<UserLoginPackage>(0, new UserLoginPackage(color, userName));
 
-            networkPackage.Value = new User(color, userName);
+            networkPackage.Value = new UserLoginPackage(color, userName);
             
             string JsonMessage = JsonUtility.ToJson(networkPackage);
             ReturnMessage = JsonMessage;
@@ -67,6 +69,11 @@ namespace Agario.Networking
             }
         }
 
+        
+        
+        
+        
+        
         public void TestConnectionTEMP()
         {
             new Thread(() => ConnectToServer("192.168.1.248", 25565, "Oskar", new Color(23f, 21f, 100f))).Start();
@@ -75,58 +82,6 @@ namespace Agario.Networking
         private void Start()
         {
             TestConnectionTEMP();
-        }
-    }
-    
-    
-    [Serializable]
-    public class UserData
-    {
-        public string UserName;
-        public Color UserColor;
-        public int id;
-
-
-
-        public UserData(string userName, Color userColor)
-        {
-            UserName = userName;
-            UserColor = userColor;
-        }
-    }
-
-    [Serializable]
-    public class NetworkPackage
-    {
-        public int Id;
-        
-        public NetworkPackage(int id)
-        {
-            Id = id;
-        }
-    }
-
-    [Serializable]
-    public class NetworkPackage<T> : NetworkPackage
-    {
-        public T Value;
-
-        public NetworkPackage(int Id, T value) : base(Id)
-        {
-            Value = value;
-        }
-    }
-
-    [Serializable]
-    public class User
-    {
-        public string UserName;
-        public Color UserColor;
-
-        public User(Color color, string userName = "Player")
-        {
-            UserName = userName;
-            UserColor = color;
         }
     }
 }
