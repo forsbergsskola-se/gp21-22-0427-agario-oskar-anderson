@@ -12,8 +12,9 @@ Serverside ConnectedPlayer objects need to have a isConnected field, or similar.
 leaves or crashes or something else. Also applies to the threads! We do not want rouge while loops running in the background waiting for a package that
 will never arrive.
 
-
-
+Change networkpackage id to be of type networkprotocol.requestType.
+That way comparisons will get way easier.
+Also rename requesttype to packagetype
 
 
 
