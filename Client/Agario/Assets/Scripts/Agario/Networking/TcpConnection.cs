@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Net.Sockets;
 using System.Threading;
@@ -34,26 +35,41 @@ public class TcpConnection : MonoBehaviour
     {
         while (true)
         {
-            string receivedJson = streamReader.ReadLine();
-            var basePackage = JsonUtility.FromJson<NetworkPackage>(receivedJson);
+            try
+            {
+                string receivedJson = streamReader.ReadLine();
+                
+                var basePackage = JsonUtility.FromJson<NetworkPackage>(receivedJson);
             
-            loginHandler.ReturnMessage = receivedJson;
+                loginHandler.ReturnMessage = receivedJson;
             
 
-            switch (basePackage.Id)
+                switch (basePackage.Id)
+                {
+                    case PackageType.UserData:
+                        loginHandler.CompleteLoginSequence(JsonUtility.FromJson<NetworkPackage<UserData>>(receivedJson));
+                        break;
+                    case PackageType.PlayerData:
+                        remotePlayerSpawner.SpawnRemotes(JsonUtility.FromJson<NetworkPackage<PlayerData[]>>(receivedJson).Value);
+                        break;
+                }
+            }
+            catch (SocketException)
             {
-                case PackageType.UserData:
-                    loginHandler.CompleteLoginSequence(JsonUtility.FromJson<NetworkPackage<UserData>>(receivedJson));
-                    break;
-                case PackageType.PlayerData:
-                    remotePlayerSpawner.SpawnRemotes(JsonUtility.FromJson<NetworkPackage<PlayerData[]>>(receivedJson).Value);
-                    break;
+                // The connection was lost. So stop the loop.
+                break;
             }
         }
     }
-    
-        
-    
+
+
+    private void OnDestroy()
+    {
+        streamReader.Dispose();
+        streamReader = null;
+    }
+
+
     /// <summary>
     /// Sends the provided networkPackage to the connected server.
     /// </summary>
