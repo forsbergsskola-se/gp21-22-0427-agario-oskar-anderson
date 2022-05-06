@@ -13,4 +13,5 @@ public enum PackageType
     Disconnect = 1,
     UserData = 2,
     PlayerData = 3,
+    Spawn = 4,
 }

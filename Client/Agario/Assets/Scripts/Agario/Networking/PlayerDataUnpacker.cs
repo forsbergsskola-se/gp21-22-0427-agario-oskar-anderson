@@ -1,3 +1,4 @@
+using Agario.Data;
 using UnityEngine;
 
 
@@ -6,16 +7,9 @@ namespace Agario.Networking
 {
     public class PlayerDataUnpacker : MonoBehaviour
     {
-        // Start is called before the first frame update
-        void Start()
+        public void UnpackRemotePlayersData(PlayerData[] remotePlayersData)
         {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
+            
         }
     }
 }

@@ -15,6 +15,10 @@ namespace Agario.Networking
         private UdpClient udpClient;
         private IPEndPoint serverEndpoint;
 
+        [SerializeField] private PlayerDataUnpacker playerDataUnpacker;
+
+        public string temp;
+
         public void SetupUdpConnection(string ipAddress, int port)
         {
             udpClient = new UdpClient(port);
@@ -32,6 +36,10 @@ namespace Agario.Networking
 
                 switch (basePackage.Id)
                 {
+                    case PackageType.PlayerData:
+                        playerDataUnpacker.UnpackRemotePlayersData(JsonUtility.FromJson<NetworkPackage<PlayerData[]>>(receivedJson).Value);
+                        temp = basePackage.Id.ToString();
+                        break;
                 }
             }
         }

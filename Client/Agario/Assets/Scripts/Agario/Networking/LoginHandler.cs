@@ -30,14 +30,14 @@ namespace Agario.Networking
             {
                 tcpConnection.SetupTcpConnection(ipAddress, port);
             }
-            catch (SocketException e)
+            catch (SocketException)
             {
                 output = "Could not reach server!";
                 // throw;
                 return false;
             }
 
-            var loginPackage = new NetworkPackage<UserLoginPackage>(0, new UserLoginPackage(color, userName));
+            var loginPackage = new NetworkPackage<UserLoginPackage>(PackageType.Login, new UserLoginPackage(color, userName));
             tcpConnection.SendPackage(loginPackage);
 
             if (ConnectionComplete.WaitOne(loginTimeOutInMS))
@@ -78,7 +78,7 @@ namespace Agario.Networking
 
         private void Start()
         {
-            new Thread(TestConnectionTEMP);
+            new Thread(TestConnectionTEMP).Start();
         }
     }
 }

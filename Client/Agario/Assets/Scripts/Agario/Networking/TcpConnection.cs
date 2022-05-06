@@ -15,6 +15,7 @@ public class TcpConnection : MonoBehaviour
     private StreamReader streamReader;
 
     [SerializeField] LoginHandler loginHandler;
+    [SerializeField] private RemotePlayerSpawner remotePlayerSpawner;
     
     public void SetupTcpConnection(string ipAddress, int port)
     {
@@ -43,6 +44,9 @@ public class TcpConnection : MonoBehaviour
             {
                 case PackageType.UserData:
                     loginHandler.CompleteLoginSequence(JsonUtility.FromJson<NetworkPackage<UserData>>(receivedJson));
+                    break;
+                case PackageType.PlayerData:
+                    remotePlayerSpawner.SpawnRemotes(JsonUtility.FromJson<NetworkPackage<PlayerData[]>>(receivedJson).Value);
                     break;
             }
         }
