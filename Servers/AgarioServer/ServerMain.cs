@@ -89,7 +89,7 @@ public class GameServer
     {
         foreach (var connectedPlayer in Players)
         {
-            connectedPlayer.SendTcpPackage(networkPackage);
+            connectedPlayer.TcpConnection.SendTcpPackage(networkPackage);
         }
     }
 

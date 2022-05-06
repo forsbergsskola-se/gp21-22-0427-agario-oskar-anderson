@@ -63,7 +63,21 @@ public class UdpBeacon
                         possibleConnectedPlayer.UdpConnection.UdpConnectionComplete.Set();
                     }
                 }
+                else
+                {
+                    Console.WriteLine("Package had wrong id! Who is sending these packages?");
+                }
             }
         }
+    }
+
+    
+    /// <summary>
+    /// Stops the udp listener. WARNING! This affects the whole server!
+    /// </summary>
+    public void StopListener()
+    {
+        UdpClient.Close();
+        UdpClient = null;
     }
 }

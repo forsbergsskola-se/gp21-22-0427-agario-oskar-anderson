@@ -17,70 +17,40 @@ public class ConnectedPlayer
     private GameServer? gameServer;
 
     public UdpConnection UdpConnection;
+    public TcpConnection TcpConnection;
 
-    private TcpClient connectionClient;
-    private StreamReader streamReader;
-    private StreamWriter streamWriter;
+    // private TcpClient connectionClient;
+    // private StreamReader streamReader;
+    // private StreamWriter streamWriter;
 
     
     
     private readonly JsonSerializerOptions serializeAllFields = new() {IncludeFields = true};
-    private static sbyte nextId;
+    
 
+    
+    
     public ConnectedPlayer(TcpClient tcpClient, GameServer gameServer, UdpBeacon udpBeacon)
     {
+        Console.WriteLine("Attempting to establish connection...");
         UdpConnection = new UdpConnection(udpBeacon);
+        TcpConnection = new TcpConnection(tcpClient);
         this.gameServer = gameServer;
 
         gameServer.PendingConnections.Add(this);
-        
-        EstablishConnection(tcpClient);
-    }
 
-    private void EstablishConnection(TcpClient tcpClient)
-    {
-        Console.WriteLine("Attempting to establish connection...");
-        streamReader = new StreamReader(tcpClient.GetStream());
-        streamWriter = new StreamWriter(tcpClient.GetStream());
-        
-
-        string? jsonMessage = streamReader.ReadLine();
-
-        var networkPackage = JsonSerializer.Deserialize<NetworkPackage>(jsonMessage, serializeAllFields);
-        if (networkPackage.Id == PackageType.Login)
-        {
-            Console.WriteLine("Connection was successful...");
-            UserData = JsonSerializer.Deserialize<NetworkPackage<UserData>>(jsonMessage, serializeAllFields).Value;
-            
-            // TODO: I don't want this here.
-            UserData.id = nextId;
-            nextId++;
-
-            var returnPackage = new NetworkPackage<UserData>(PackageType.UserData ,UserData);
-            streamWriter.WriteLine(JsonSerializer.Serialize(returnPackage, serializeAllFields));
-            streamWriter.Flush();
-            Console.WriteLine($"Welcome to the server {UserData.UserName}{UserData.id} with color {UserData.UserColor}");
-        }
-        else
-        {
-            Console.WriteLine("Connection refused due to incorrect package id...");
-            return;
-        }
-
-        connectionClient = tcpClient;
-        
+        // We only need to wait for the Udp connection because it won't finish before a tcp connection has been 
+        // established.
         WaitForUdpConnection();
+        
         AddPlayerToGameLoop();
     }
-
+    
+    
+    
+    
     private void WaitForUdpConnection()
     {
-        // Create a udp connection here to handle common packages like position updates and food information.
-        
-
-        // Try to connect over udp as well. If unsuccessful send a disconnect package over tcp and then quit the
-        // connection.
-
         UdpConnection.UdpConnectionComplete.WaitOne();
     }
     
@@ -98,17 +68,4 @@ public class ConnectedPlayer
         // We probably want to lock the list of connected players so we here wait to add the player right before the 
         // next loop iteration.
     }
-
-    private void WaitForTcpPackages()
-    {
-        
-    }
-
-    public void SendTcpPackage(NetworkPackage networkPackage)
-    {
-        streamWriter.WriteLine(JsonSerializer.Serialize(networkPackage, serializeAllFields));
-        streamWriter.Flush();
-    }
-
-
 }
