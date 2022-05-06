@@ -47,7 +47,7 @@ public class ConnectedPlayer
         string? jsonMessage = streamReader.ReadLine();
 
         var networkPackage = JsonSerializer.Deserialize<NetworkPackage>(jsonMessage, serializeAllFields);
-        if (networkPackage.Id == (int) NetworkProtocol.RequestType.Login)
+        if (networkPackage.Id == PackageType.Login)
         {
             Console.WriteLine("Connection was successful...");
             UserData = JsonSerializer.Deserialize<NetworkPackage<UserData>>(jsonMessage, serializeAllFields).Value;
@@ -56,7 +56,7 @@ public class ConnectedPlayer
             UserData.id = nextId;
             nextId++;
 
-            var returnPackage = new NetworkPackage<UserData>((int)NetworkProtocol.RequestType.UserData ,UserData);
+            var returnPackage = new NetworkPackage<UserData>(PackageType.UserData ,UserData);
             streamWriter.WriteLine(JsonSerializer.Serialize(returnPackage, serializeAllFields));
             streamWriter.Flush();
             Console.WriteLine($"Welcome to the server {UserData.UserName}{UserData.id} with color {UserData.UserColor}");

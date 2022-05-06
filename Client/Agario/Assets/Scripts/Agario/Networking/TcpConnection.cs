@@ -41,7 +41,7 @@ public class TcpConnection : MonoBehaviour
 
             switch (basePackage.Id)
             {
-                case (int)NetworkProtocol.RequestType.UserData:
+                case PackageType.UserData:
                     loginHandler.CompleteLoginSequence(JsonUtility.FromJson<NetworkPackage<UserData>>(receivedJson));
                     break;
             }

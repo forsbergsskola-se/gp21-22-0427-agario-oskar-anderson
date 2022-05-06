@@ -50,7 +50,7 @@ public class UdpBeacon
                 Console.WriteLine("Udp: endpoint was not known, attempting to add...");
                 var package = JsonSerializer.Deserialize<NetworkPackage>(Json, serializeAllFields);
 
-                if (package.Id == (int) NetworkProtocol.RequestType.UserData)
+                if (package.Id == PackageType.UserData)
                 {
                     var userData = JsonSerializer.Deserialize<NetworkPackage<UserData>>(Json, serializeAllFields).Value;
 

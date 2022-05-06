@@ -72,7 +72,7 @@ public class GameServer
         }
 
         NetworkPackage<PlayerData[]> networkPackage =
-            new NetworkPackage<PlayerData[]>((int) NetworkProtocol.RequestType.PlayerData, data);
+            new NetworkPackage<PlayerData[]>(PackageType.PlayerData, data);
 
         SendUdpPackageToAllClients(networkPackage);
     }

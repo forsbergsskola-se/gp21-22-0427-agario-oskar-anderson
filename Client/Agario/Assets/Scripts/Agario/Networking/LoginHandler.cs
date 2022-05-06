@@ -47,7 +47,7 @@ namespace Agario.Networking
                     $"Welcome to the server {playerInformation.UserData.UserName}{playerInformation.UserData.id} with color {playerInformation.UserData.UserColor}";
 
                 udpConnection.SetupUdpConnection(ipAddress, port);
-                udpConnection.SendPackage(new NetworkPackage<UserData>((int)NetworkProtocol.RequestType.UserData, playerInformation.UserData));
+                udpConnection.SendPackage(new NetworkPackage<UserData>(PackageType.UserData, playerInformation.UserData));
 
                 return true;
             }
