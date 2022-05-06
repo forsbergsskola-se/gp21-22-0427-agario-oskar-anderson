@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -17,7 +19,7 @@ namespace Agario.Networking
 
         [SerializeField] private PlayerDataUnpacker playerDataUnpacker;
 
-        public string temp;
+        [SerializeField] private List<String> temp;
 
         public void SetupUdpConnection(string ipAddress, int port)
         {
@@ -38,12 +40,17 @@ namespace Agario.Networking
                 {
                     case PackageType.PlayerData:
                         playerDataUnpacker.UnpackRemotePlayersData(JsonUtility.FromJson<NetworkPackage<PlayerData[]>>(receivedJson).Value);
-                        temp = basePackage.Id.ToString();
                         break;
                 }
             }
         }
-        
+
+        private void OnDestroy()
+        {
+            udpClient?.Close();
+            udpClient = null;
+        }
+
         /// <summary>
         /// Sends the provided networkPackage to the connected server.
         /// </summary>
@@ -51,6 +58,9 @@ namespace Agario.Networking
         public void SendPackage(NetworkPackage networkPackage)
         {
             string jsonMessage = JsonUtility.ToJson(networkPackage);
+            
+            temp.Add(jsonMessage);
+            
             var bytes = Encoding.UTF8.GetBytes(jsonMessage);
             udpClient.Send(bytes, bytes.Length, serverEndpoint);
         }

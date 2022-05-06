@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Sockets;
 using System.Threading;
@@ -17,6 +18,8 @@ public class TcpConnection : MonoBehaviour
 
     [SerializeField] LoginHandler loginHandler;
     [SerializeField] private RemotePlayerSpawner remotePlayerSpawner;
+
+    [SerializeField] private List<String> temp;
     
     public void SetupTcpConnection(string ipAddress, int port)
     {
@@ -39,18 +42,18 @@ public class TcpConnection : MonoBehaviour
             {
                 string receivedJson = streamReader.ReadLine();
                 
-                var basePackage = JsonUtility.FromJson<NetworkPackage>(receivedJson);
-            
                 loginHandler.ReturnMessage = receivedJson;
-            
+                
+                var basePackage = JsonUtility.FromJson<NetworkPackage>(receivedJson);
+                
 
                 switch (basePackage.Id)
                 {
                     case PackageType.UserData:
                         loginHandler.CompleteLoginSequence(JsonUtility.FromJson<NetworkPackage<UserData>>(receivedJson));
                         break;
-                    case PackageType.PlayerData:
-                        remotePlayerSpawner.SpawnRemotes(JsonUtility.FromJson<NetworkPackage<PlayerData[]>>(receivedJson).Value);
+                    case PackageType.NewUsers:
+                        remotePlayerSpawner.SpawnRemotes(JsonUtility.FromJson<NetworkPackage<UserData[]>>(receivedJson).Value);
                         break;
                 }
             }
@@ -65,7 +68,7 @@ public class TcpConnection : MonoBehaviour
 
     private void OnDestroy()
     {
-        streamReader.Dispose();
+        streamReader?.Close();
         streamReader = null;
     }
 
@@ -77,6 +80,9 @@ public class TcpConnection : MonoBehaviour
     public void SendPackage(NetworkPackage networkPackage)
     {
         string jsonMessage = JsonUtility.ToJson(networkPackage);
+        
+        temp.Add(jsonMessage);
+        
         streamWriter.WriteLine(jsonMessage);
         streamWriter.Flush();
     }

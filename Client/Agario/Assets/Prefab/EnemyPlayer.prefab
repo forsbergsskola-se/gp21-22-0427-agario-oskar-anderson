@@ -128,6 +128,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerMove: {fileID: 5208817221268715794}
+  playerSize: {fileID: -6412767105499252153}
+  spriteRenderer: {fileID: 9029041994936869618}
+  UserData:
+    UserName: 
+    UserColor: {r: 0, g: 0, b: 0, a: 0}
+    id: 0
+  PlayerData:
+    PlayerId: 0
+    Size: 0
+    XPosition: 0
+    YPosition: 0
 --- !u!1 &9029041995289267570
 GameObject:
   m_ObjectHideFlags: 0
