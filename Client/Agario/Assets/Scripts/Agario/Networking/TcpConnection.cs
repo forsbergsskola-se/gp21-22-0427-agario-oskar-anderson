@@ -68,6 +68,8 @@ public class TcpConnection : MonoBehaviour
 
     private void OnDestroy()
     {
+        SendPackage(new NetworkPackage(PackageType.Disconnect));
+        
         streamReader?.Close();
         streamReader = null;
     }

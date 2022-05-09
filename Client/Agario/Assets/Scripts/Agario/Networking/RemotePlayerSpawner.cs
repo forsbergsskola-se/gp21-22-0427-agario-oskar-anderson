@@ -24,7 +24,7 @@ public class RemotePlayerSpawner : MonoBehaviour
                 var remotePlayerObject = Instantiate(remotePlayerPrefab);
                 var remotePlayer = remotePlayerObject.GetComponent<RemotePlayer>();
                 remotePlayer.ApplyUserData(userData);
-                playerDataUnpacker.currentRemotePlayers[userData.id] = remotePlayer;
+                playerDataUnpacker.currentRemotePlayers.Add(userData.id, remotePlayer);
                 Debug.Log(userData.id);
                 Debug.Log(userData.UserName);
                 Debug.Log(userData.UserColor);
