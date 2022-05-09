@@ -79,7 +79,7 @@ public class TcpConnection
     
     public void StopListener()
     {
-        streamReader.Close();
+        streamReader?.Close();
         streamReader = null;
     }
     
