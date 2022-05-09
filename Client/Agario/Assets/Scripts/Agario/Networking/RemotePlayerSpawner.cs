@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using Agario.Data;
 using Agario.Entities.RemotePlayer;
 using Agario.Networking;
@@ -24,6 +25,9 @@ public class RemotePlayerSpawner : MonoBehaviour
                 var remotePlayer = remotePlayerObject.GetComponent<RemotePlayer>();
                 remotePlayer.ApplyUserData(userData);
                 playerDataUnpacker.currentRemotePlayers[userData.id] = remotePlayer;
+                Debug.Log(userData.id);
+                Debug.Log(userData.UserName);
+                Debug.Log(userData.UserColor);
             }
         });
     }

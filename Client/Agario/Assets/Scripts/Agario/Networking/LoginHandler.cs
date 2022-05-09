@@ -14,7 +14,6 @@ namespace Agario.Networking
         public string ReturnMessage2;
         public string output;
 
-
         [SerializeField] private TcpConnection tcpConnection;
         [SerializeField] private UdpConnection udpConnection;
         [SerializeField] private PlayerInformation playerInformation;

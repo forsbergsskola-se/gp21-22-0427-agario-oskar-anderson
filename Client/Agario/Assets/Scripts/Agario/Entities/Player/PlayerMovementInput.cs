@@ -5,15 +5,15 @@ namespace Agario.Entities.Player
     public class PlayerMovementInput : MonoBehaviour
     {
         [SerializeField] private Camera playerCamera;
-        [SerializeField] private Move playerMove;
-    
+        [SerializeField] private PlayerMovement playerMovement;
+
 
 
         private void FixedUpdate()
         {
             if (TryGetWorldSpaceMousePosition(out Vector3 position))
             {
-                playerMove.MoveTowards(position);
+                playerMovement.MoveTowards(position);
             }
         }
     
