@@ -19,8 +19,6 @@ public class TcpConnection : MonoBehaviour
     [SerializeField] LoginHandler loginHandler;
     [SerializeField] private RemotePlayerSpawner remotePlayerSpawner;
 
-    [SerializeField] private List<String> temp;
-    
     public void SetupTcpConnection(string ipAddress, int port)
     {
         tcpClient = new TcpClient(ipAddress, port);
@@ -82,9 +80,7 @@ public class TcpConnection : MonoBehaviour
     public void SendPackage(NetworkPackage networkPackage)
     {
         string jsonMessage = JsonUtility.ToJson(networkPackage);
-        
-        temp.Add(jsonMessage);
-        
+
         streamWriter.WriteLine(jsonMessage);
         streamWriter.Flush();
     }

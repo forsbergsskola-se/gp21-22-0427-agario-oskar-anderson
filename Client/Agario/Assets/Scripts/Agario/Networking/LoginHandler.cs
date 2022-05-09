@@ -3,7 +3,7 @@ using System.Threading;
 using UnityEngine;
 
 using Agario.Data;
-
+using Agario.Entities.Player;
 
 
 namespace Agario.Networking

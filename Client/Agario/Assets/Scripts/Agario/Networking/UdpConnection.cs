@@ -19,7 +19,6 @@ namespace Agario.Networking
 
         [SerializeField] private PlayerDataUnpacker playerDataUnpacker;
 
-        [SerializeField] private List<String> temp;
 
         public void SetupUdpConnection(string ipAddress, int port)
         {
@@ -58,9 +57,7 @@ namespace Agario.Networking
         public void SendPackage(NetworkPackage networkPackage)
         {
             string jsonMessage = JsonUtility.ToJson(networkPackage);
-            
-            temp.Add(jsonMessage);
-            
+
             var bytes = Encoding.UTF8.GetBytes(jsonMessage);
             udpClient.Send(bytes, bytes.Length, serverEndpoint);
         }
