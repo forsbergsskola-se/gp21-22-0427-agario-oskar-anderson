@@ -60,6 +60,7 @@ namespace Agario.Networking
         public void CompleteLoginSequence(NetworkPackage<UserData> userDataPackage)
         {
             playerInformation.UserData = userDataPackage.Value;
+            playerInformation.PlayerData.PlayerId = playerInformation.UserData.id;
             ConnectionComplete.Set();
         }
 

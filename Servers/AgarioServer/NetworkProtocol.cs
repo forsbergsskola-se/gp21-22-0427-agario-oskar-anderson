@@ -14,4 +14,5 @@ public enum PackageType
     Show = 4,
     Hide = 5,
     NewUsers = 6,
+    UserDisconnect = 7,
 }

@@ -12,7 +12,7 @@ public class ConnectedPlayer
     public UserData UserData;
     public PlayerData PlayerData = new PlayerData();
     
-    private GameServer? gameServer;
+    private GameServer gameServer;
 
     public UdpConnection UdpConnection;
     public TcpConnection TcpConnection;
@@ -56,5 +56,10 @@ public class ConnectedPlayer
     private void WaitForUdpConnection()
     {
         UdpConnection.UdpConnectionComplete.WaitOne();
+    }
+
+    public void Disconnect()
+    {
+        gameServer.RemovePlayerFromGameLoop(this);
     }
 }

@@ -27,6 +27,8 @@ public class TcpConnection
         new Thread(TcpListener).Start();
     }
 
+    
+    
     private void TcpListener()
     {
         while (true)
@@ -50,17 +52,25 @@ public class TcpConnection
                             serializeAllFields);
                         AcceptLoginPackage(temp);
                         break;
+                    case PackageType.Disconnect:
+                        connectedPlayer.Disconnect();
+                        return;
                 }
             }
             catch (SocketException e)
             {
                 Console.WriteLine("Tcp: socketException...");
                 Console.WriteLine(e);
-                throw;
+                
+                connectedPlayer.Disconnect();
+                
+                // throw;
             }
         }
     }
 
+    
+    
     public void StopListener()
     {
         streamReader.Close();

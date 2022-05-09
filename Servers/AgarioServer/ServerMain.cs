@@ -18,10 +18,12 @@ public class GameServer
     public List<ConnectedPlayer> Players = new();
     private const int MaxUpdateTime = 1000 / 60;
 
+    private UdpBeacon udpBeacon;
+    
 
     public void StartServer()
-    {
-        var udpBeacon = new UdpBeacon(this);
+    { 
+        udpBeacon = new UdpBeacon(this);
         
         // Main server loop.
         new Thread(ServerLoop).Start();
@@ -44,11 +46,29 @@ public class GameServer
     public void AddPlayerToGameLoop(ConnectedPlayer player)
     {
         PendingConnections.Remove(player);
-        Players.Add(player);
+        lock (Players)
+        {
+            Players.Add(player);
+        }
 
         var newPlayerPackage = new NetworkPackage<UserData[]>(PackageType.NewUsers, new[] {player.UserData});
         
         SendTcpPackageToAllClients(newPlayerPackage);
+    }
+
+    public void RemovePlayerFromGameLoop(ConnectedPlayer player)
+    {
+        lock (Players)
+        {
+            Players.Remove(player);
+        }
+
+        player.TcpConnection.StopListener();
+        udpBeacon.clientEndpoints.Remove(player.UdpConnection.PlayerEndpoint);
+
+        var playerDisconnectPackage = new NetworkPackage<UserData>(PackageType.UserDisconnect, player.UserData);
+
+        SendTcpPackageToAllClients(playerDisconnectPackage);
     }
     
 
@@ -62,8 +82,14 @@ public class GameServer
         {
             var Timeout = UpdateTimeout();
             
-            SendUpdatedPlayerPositionsAndSizes();
+            // Update body.
+            lock (Players)
+            {
+                SendUpdatedPlayerPositionsAndSizes();
             
+            
+
+            }
             
             if (Timeout.IsCompleted)
                 Console.WriteLine($"Warning! Update took longer than {MaxUpdateTime}ms! Is the server overloaded?");
@@ -93,6 +119,7 @@ public class GameServer
         SendUdpPackageToAllClients(playersData);
     }
 
+    
 
 
 
