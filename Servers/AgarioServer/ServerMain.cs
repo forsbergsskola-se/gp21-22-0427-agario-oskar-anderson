@@ -25,7 +25,9 @@ public class GameServer
     public void StartServer()
     { 
         udpBeacon = new UdpBeacon(this);
-        inactivityChecker = new InactivityChecker(this);
+        
+        // TODO: Disabled because of strange problems and the code being low priority.
+        // inactivityChecker = new InactivityChecker(this);
         
         // Main server loop.
         new Thread(ServerLoop).Start();
