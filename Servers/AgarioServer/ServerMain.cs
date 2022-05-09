@@ -19,11 +19,13 @@ public class GameServer
     private const int MaxUpdateTime = 1000 / 60;
 
     private UdpBeacon udpBeacon;
+    private InactivityChecker inactivityChecker;
     
 
     public void StartServer()
     { 
         udpBeacon = new UdpBeacon(this);
+        inactivityChecker = new InactivityChecker(this);
         
         // Main server loop.
         new Thread(ServerLoop).Start();
