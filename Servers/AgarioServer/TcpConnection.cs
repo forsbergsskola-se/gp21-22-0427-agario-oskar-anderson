@@ -1,4 +1,5 @@
 ﻿using System.Net.Sockets;
+using System.Runtime.InteropServices;
 using System.Text.Json;
 
 namespace AgarioServer;
@@ -7,7 +8,7 @@ public class TcpConnection
 {
     private ConnectedPlayer connectedPlayer;
     private TcpClient tcpClient;
-    private StreamReader streamReader;
+    private StreamReader? streamReader;
     private StreamWriter streamWriter;
     
     private readonly JsonSerializerOptions serializeAllFields = new() {IncludeFields = true};
@@ -31,7 +32,7 @@ public class TcpConnection
     
     private void TcpListener()
     {
-        while (true)
+        while (streamReader != null)
         {
             try
             {
@@ -79,6 +80,7 @@ public class TcpConnection
     public void StopListener()
     {
         streamReader.Close();
+        streamReader = null;
     }
     
     
