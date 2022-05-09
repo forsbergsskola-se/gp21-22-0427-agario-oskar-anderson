@@ -24,7 +24,7 @@ public class InactivityChecker
 
             KickInactivePlayers();
 
-            Task.Delay(1000);
+            Thread.Sleep(1000);
         }
     }
 

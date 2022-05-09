@@ -36,7 +36,7 @@ public class TcpConnection
             try
             {
                 string receivedJson = streamReader.ReadLine();
-                
+
                 // If the string is null then it means the streamReader has been closed. So stop this listener.
                 if (receivedJson == null)
                     return;
@@ -61,10 +61,15 @@ public class TcpConnection
             {
                 Console.WriteLine("Tcp: socketException...");
                 Console.WriteLine(e);
-                
+
                 connectedPlayer.Disconnect();
-                
+
                 // throw;
+            }
+            catch (IOException e)
+            {
+                Console.WriteLine("User crashed!");
+                connectedPlayer.Disconnect();
             }
         }
     }
