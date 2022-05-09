@@ -11,7 +11,7 @@ namespace Agario.Networking
     {
         [SerializeField] private PlayerInformation playerInformation;
         
-        private Dictionary<int, RemotePlayer> currentRemotePlayers;
+        public Dictionary<int, RemotePlayer> currentRemotePlayers = new();
 
 
         public void UnpackRemotePlayersData(PlayerData[] remotePlayersData)
@@ -23,7 +23,7 @@ namespace Agario.Networking
                     continue;
                 }
                 
-                if (currentRemotePlayers.ContainsKey(remotePlayerData.PlayerId))
+                if (!currentRemotePlayers.ContainsKey(remotePlayerData.PlayerId))
                 {
                     continue;
                 }
