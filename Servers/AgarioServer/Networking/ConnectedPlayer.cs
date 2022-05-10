@@ -30,6 +30,7 @@ public class ConnectedPlayer
 
         PlayerData.PlayerId = UserData.id;
         SendCurrentPlayers();
+        SendCurrentFoodPositions();
         
         gameServer.AddPlayerToGameLoop(this);
     }
@@ -47,6 +48,12 @@ public class ConnectedPlayer
 
         var currentUsersPackage = new NetworkPackage<UserData[]>(PackageType.NewUsers, userData);
         TcpConnection.SendTcpPackage(currentUsersPackage);
+    }
+
+    private void SendCurrentFoodPositions()
+    {
+        var foodPackage = gameServer.foodControl.GetCurrentFoodPositionsPackage();
+        TcpConnection.SendTcpPackage(foodPackage);
     }
     
     private void WaitForUdpConnection()

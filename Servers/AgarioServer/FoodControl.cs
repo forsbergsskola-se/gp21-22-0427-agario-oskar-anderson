@@ -5,16 +5,14 @@ namespace AgarioServer;
 
 public class FoodControl
 {
-    private HashSet<Vector2> foodPositions = new();
-    private Random random = new();
+    private readonly HashSet<Vector2> foodPositions = new();
+    private readonly Random random = new();
     private readonly int maxFoodCount;
-
-    public Vector2[] CurrentFoodPositions => foodPositions.ToArray();
 
 
     public FoodControl(int maxFood)
     {
-        
+        maxFoodCount = maxFood;
     }
 
     
@@ -44,9 +42,9 @@ public class FoodControl
 
     
     
-    private NetworkPackage<Vector2[]> GetCurrentFoodPositionsPackage()
+    public NetworkPackage<Vector2[]> GetCurrentFoodPositionsPackage()
     {
-        return CreateFoodPackage(CurrentFoodPositions);
+        return CreateFoodPackage(foodPositions.ToArray());
     }
     
     

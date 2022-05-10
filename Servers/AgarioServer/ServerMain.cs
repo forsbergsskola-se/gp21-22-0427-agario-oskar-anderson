@@ -22,7 +22,7 @@ public class GameServer
     private const int MaxUpdateTime = 1000 / 60;
 
     private UdpBeacon udpBeacon;
-    private FoodControl foodControl = new(500);
+    public FoodControl foodControl = new(500);
     private InactivityChecker inactivityChecker;
     
 
