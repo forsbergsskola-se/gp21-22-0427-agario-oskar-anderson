@@ -1,4 +1,4 @@
-﻿namespace AgarioServer;
+﻿namespace AgarioServer.Data;
 
 public class NetworkProtocol
 {

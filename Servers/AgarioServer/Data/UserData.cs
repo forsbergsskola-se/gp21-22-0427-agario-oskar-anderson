@@ -1,4 +1,4 @@
-namespace AgarioServer;
+namespace AgarioServer.Data;
 
 /// <summary>
 /// Holds information about a user.

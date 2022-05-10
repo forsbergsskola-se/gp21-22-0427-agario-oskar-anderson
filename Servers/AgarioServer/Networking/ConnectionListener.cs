@@ -1,7 +1,8 @@
 ﻿using System.Net;
 using System.Net.Sockets;
+using AgarioServer.Data;
 
-namespace AgarioServer;
+namespace AgarioServer.Networking;
 
 public class ConnectionListener
 {

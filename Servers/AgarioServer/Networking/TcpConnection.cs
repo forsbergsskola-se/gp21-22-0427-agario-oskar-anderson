@@ -1,8 +1,8 @@
 ﻿using System.Net.Sockets;
-using System.Runtime.InteropServices;
 using System.Text.Json;
+using AgarioServer.Data;
 
-namespace AgarioServer;
+namespace AgarioServer.Networking;
 
 public class TcpConnection
 {

@@ -2,9 +2,9 @@
 using System.Net.Sockets;
 using System.Text;
 using System.Text.Json;
-using System.Threading.Channels;
+using AgarioServer.Data;
 
-namespace AgarioServer;
+namespace AgarioServer.Networking;
 
 public class UdpBeacon
 {

@@ -1,4 +1,7 @@
-﻿namespace AgarioServer;
+﻿using AgarioServer.Data;
+using AgarioServer.Networking;
+
+namespace AgarioServer;
 
 public class InactivityChecker
 {
