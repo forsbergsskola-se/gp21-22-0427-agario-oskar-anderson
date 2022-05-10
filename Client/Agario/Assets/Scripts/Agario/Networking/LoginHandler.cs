@@ -87,7 +87,7 @@ namespace Agario.Networking
         {
             // new Thread(TestConnectionTEMP).Start();
             // StartCoroutine(Login("192.168.1.248", 25565, "Oskar", new Color(23f, 21f, 100f)));
-            Login("192.168.1.248", 25565, "Oskar", new Color(23f, 21f, 100f));
+            Login("192.168.1.248", 7777, "Oskar", new Color(23f, 21f, 100f));
         }
         
         
