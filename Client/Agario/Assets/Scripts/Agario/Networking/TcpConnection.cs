@@ -48,7 +48,7 @@ public class TcpConnection : MonoBehaviour
                 switch (basePackage.Id)
                 {
                     case PackageType.UserData:
-                        loginHandler.CompleteLoginSequence(JsonUtility.FromJson<NetworkPackage<UserData>>(receivedJson));
+                        loginHandler.CompleteTcpLoginSequence(JsonUtility.FromJson<NetworkPackage<UserData>>(receivedJson));
                         break;
                     case PackageType.NewUsers:
                         remotePlayerSpawner.SpawnRemotes(JsonUtility.FromJson<NetworkPackage<UserData[]>>(receivedJson).Value);

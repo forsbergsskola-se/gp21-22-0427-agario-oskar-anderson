@@ -1,3 +1,4 @@
+using System;
 using Agario.Data;
 using Agario.Networking;
 using UnityEngine;
@@ -9,6 +10,11 @@ namespace Agario.Entities.Player
         [SerializeField] private UdpConnection udpConnection;
         [SerializeField] private PlayerInformation playerInformation;
 
+
+        private void Start()
+        {
+            enabled = false;
+        }
 
         private void FixedUpdate()
         {

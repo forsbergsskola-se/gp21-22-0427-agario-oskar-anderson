@@ -1,3 +1,6 @@
+using System;
+using System.Collections;
+using System.Linq;
 using System.Net.Sockets;
 using System.Threading;
 using UnityEngine;
@@ -19,11 +22,14 @@ namespace Agario.Networking
         [SerializeField] private PlayerInformation playerInformation;
         [SerializeField] private int loginTimeOutInMS;
 
-        public EventWaitHandle ConnectionComplete = new(false, EventResetMode.ManualReset);
+        public EventWaitHandle TcpConnectionComplete = new(false, EventResetMode.ManualReset);
+
+        private delegate void PostLoginAttemptCode();
+
+        private PostLoginAttemptCode postLoginAttemptCode;
 
 
-
-        public bool ConnectToServer(string ipAddress, int port, string userName, Color color)
+        private bool ConnectToServer(string ipAddress, int port, string userName, Color color)
         {
             try
             {
@@ -31,7 +37,7 @@ namespace Agario.Networking
             }
             catch (SocketException)
             {
-                output = "Could not reach server!";
+                // output = "Could not reach server!";
                 // throw;
                 return false;
             }
@@ -39,7 +45,7 @@ namespace Agario.Networking
             var loginPackage = new NetworkPackage<UserLoginPackage>(PackageType.Login, new UserLoginPackage(color, userName));
             tcpConnection.SendPackage(loginPackage);
 
-            if (ConnectionComplete.WaitOne(loginTimeOutInMS))
+            if (TcpConnectionComplete.WaitOne(loginTimeOutInMS))
             {
                 // Todo: Temporary text output.
                 output =
@@ -51,34 +57,67 @@ namespace Agario.Networking
                 return true;
             }
 
-            output = "Server did not respond in time!";
+            // output = "Server did not respond in time!";
             return false;
         }
 
 
 
-        public void CompleteLoginSequence(NetworkPackage<UserData> userDataPackage)
+        public void CompleteTcpLoginSequence(NetworkPackage<UserData> userDataPackage)
         {
             playerInformation.UserData = userDataPackage.Value;
             playerInformation.PlayerData.PlayerId = playerInformation.UserData.id;
-            ConnectionComplete.Set();
+            TcpConnectionComplete.Set();
         }
 
 
+        [SerializeField] private PlayerDataSender playerDataSender;
+        [SerializeField] private PlayerMovementInput playerMovementInput;
         
-        
-        public void TestConnectionTEMP()
+        private void EnableNetworkingObjects()
         {
-            if (!ConnectToServer("192.168.1.248", 25565, "Oskar", new Color(23f, 21f, 100f)))
-            {
-                // This runs if the code failed. We want to retry the connection here, or possible ask the user for a 
-                // new ip and port.
-            }
+            playerDataSender.enabled = true;
+            playerMovementInput.enabled = true;
         }
+
+        private void ReturnToLoginScreenAfterFailedAttempt()
+        {
+            throw new NotImplementedException();
+        }
+
+        
 
         private void Start()
         {
-            new Thread(TestConnectionTEMP).Start();
+            // new Thread(TestConnectionTEMP).Start();
+            // StartCoroutine(Login("192.168.1.248", 25565, "Oskar", new Color(23f, 21f, 100f)));
+            Login("192.168.1.248", 25565, "Oskar", new Color(23f, 21f, 100f));
+        }
+        
+        
+        
+
+        private void Login(string ipAddress, int port, string userName, Color color)
+        {
+            new Thread(() =>
+            {
+                if (ConnectToServer(ipAddress, port, userName, color)) {
+                    postLoginAttemptCode = EnableNetworkingObjects;
+                }
+                else {
+                    postLoginAttemptCode = ReturnToLoginScreenAfterFailedAttempt;
+                }
+                
+            }).Start();
+        }
+
+        private void FixedUpdate()
+        {
+            if (postLoginAttemptCode != null)
+            {
+                postLoginAttemptCode();
+                postLoginAttemptCode = null;
+            }
         }
     }
 }

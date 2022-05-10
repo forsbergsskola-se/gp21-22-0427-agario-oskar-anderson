@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Agario.Entities.Player
@@ -7,6 +8,11 @@ namespace Agario.Entities.Player
         [SerializeField] private Camera playerCamera;
         [SerializeField] private PlayerMovement playerMovement;
 
+
+        private void Start()
+        {
+            enabled = false;
+        }
 
 
         private void FixedUpdate()
