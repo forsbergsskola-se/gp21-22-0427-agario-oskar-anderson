@@ -11,17 +11,21 @@ namespace Agario.Entities.Food
         private Queue<Action> spawnQueue = new();
 
 
-        public void AddFoodToSpawnQueue(Vector2[] positions)
+        public void AddFoodToSpawnQueue(AnnoyingFakeVector2[] positions)
         {
-            spawnQueue.Enqueue(() =>
+            lock (spawnQueue)
             {
-                foreach (var position in positions)
+                spawnQueue.Enqueue(() =>
                 {
-                    Instantiate(foodPrefab, position, quaternion.identity);
-                }
-            });
+                    foreach (var position in positions)
+                    {
+                        var unityVector = new Vector3(position.X, position.Y, 0);
+                        Instantiate(foodPrefab, unityVector, quaternion.identity);
+                    }
+                });
+            }
         }
-    
+
         private void Update()
         {
             lock (spawnQueue)

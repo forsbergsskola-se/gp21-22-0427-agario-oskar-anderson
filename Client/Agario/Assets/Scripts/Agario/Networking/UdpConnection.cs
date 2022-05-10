@@ -41,7 +41,7 @@ namespace Agario.Networking
                         playerDataUnpacker.UnpackRemotePlayersData(JsonUtility.FromJson<NetworkPackage<PlayerData[]>>(receivedJson).Value);
                         break;
                     case PackageType.FoodSpawning:
-                        foodSpawner.AddFoodToSpawnQueue(JsonUtility.FromJson<NetworkPackage<Vector2[]>>(receivedJson)
+                        foodSpawner.AddFoodToSpawnQueue(JsonUtility.FromJson<NetworkPackage<AnnoyingFakeVector2[]>>(receivedJson)
                             .Value);
                         break;
                 }

@@ -6,6 +6,7 @@ using System.Threading;
 using UnityEngine;
 
 using Agario.Data;
+using Agario.Entities.Food;
 using Agario.Networking;
 
 
@@ -18,6 +19,7 @@ public class TcpConnection : MonoBehaviour
 
     [SerializeField] LoginHandler loginHandler;
     [SerializeField] private RemotePlayerSpawner remotePlayerSpawner;
+    [SerializeField] private FoodSpawner foodSpawner;
 
     public void SetupTcpConnection(string ipAddress, int port)
     {
@@ -53,6 +55,9 @@ public class TcpConnection : MonoBehaviour
                         break;
                     case PackageType.UserDisconnect:
                         remotePlayerSpawner.DeSpawnRemotes(JsonUtility.FromJson<NetworkPackage<UserData>>(receivedJson).Value);
+                        break;
+                    case PackageType.FoodSpawning:
+                        foodSpawner.AddFoodToSpawnQueue(JsonUtility.FromJson<NetworkPackage<AnnoyingFakeVector2[]>>(receivedJson).Value);
                         break;
                 }
             }
