@@ -39,9 +39,7 @@ public class TcpConnection : MonoBehaviour
             try
             {
                 string receivedJson = streamReader.ReadLine();
-                
-                loginHandler.ReturnMessage = receivedJson;
-                
+
                 var basePackage = JsonUtility.FromJson<NetworkPackage>(receivedJson);
                 
 

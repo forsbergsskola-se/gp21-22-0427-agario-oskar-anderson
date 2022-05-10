@@ -15,4 +15,5 @@ public enum PackageType
     Hide = 5,
     NewUsers = 6,
     UserDisconnect = 7,
+    FoodSpawning = 8,
 }

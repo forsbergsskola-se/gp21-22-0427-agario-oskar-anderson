@@ -12,6 +12,8 @@ public class RemotePlayerSpawner : MonoBehaviour
     [SerializeField] private PlayerDataUnpacker playerDataUnpacker;
     [SerializeField] private PlayerInformation playerInformation;
     
+    public Queue<Action> actionQueue = new();
+    
     public void SpawnRemotes(UserData[] remotePlayersData)
     {
         actionQueue.Enqueue(() =>
@@ -31,6 +33,8 @@ public class RemotePlayerSpawner : MonoBehaviour
             }
         });
     }
+    
+    
 
     public void DeSpawnRemotes(UserData userData)
     {
@@ -42,8 +46,7 @@ public class RemotePlayerSpawner : MonoBehaviour
             
         });
     }
-
-    public Queue<Action> actionQueue = new();
+    
 
 
     private void FixedUpdate()

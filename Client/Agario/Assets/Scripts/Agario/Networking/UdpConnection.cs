@@ -7,7 +7,7 @@ using System.Threading;
 using UnityEngine;
 
 using Agario.Data;
-
+using Agario.Entities.Food;
 
 
 namespace Agario.Networking
@@ -18,7 +18,7 @@ namespace Agario.Networking
         private IPEndPoint serverEndpoint;
 
         [SerializeField] private PlayerDataUnpacker playerDataUnpacker;
-
+        [SerializeField] private FoodSpawner foodSpawner;
 
         public void SetupUdpConnection(string ipAddress, int port)
         {
@@ -39,6 +39,10 @@ namespace Agario.Networking
                 {
                     case PackageType.PlayerData:
                         playerDataUnpacker.UnpackRemotePlayersData(JsonUtility.FromJson<NetworkPackage<PlayerData[]>>(receivedJson).Value);
+                        break;
+                    case PackageType.FoodSpawning:
+                        foodSpawner.AddFoodToSpawnQueue(JsonUtility.FromJson<NetworkPackage<Vector2[]>>(receivedJson)
+                            .Value);
                         break;
                 }
             }

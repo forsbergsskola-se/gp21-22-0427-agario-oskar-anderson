@@ -123,6 +123,67 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &923611891
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 923611894}
+  - component: {fileID: 923611893}
+  - component: {fileID: 923611892}
+  m_Layer: 0
+  m_Name: EntityHandler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &923611892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 923611891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96d4c8de11a855d43bdb3afae2b665bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  foodPrefab: {fileID: 1861828798350042123, guid: 9b9a5b1cd22db154fbb6123fa57d01b5, type: 3}
+--- !u!114 &923611893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 923611891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62d3711df8149fc48b576841c1e9b228, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  remotePlayerPrefab: {fileID: 9029041994936869517, guid: fa361e0303bfc0448909b2ebd50a6af9, type: 3}
+  playerDataUnpacker: {fileID: 1172692808}
+  playerInformation: {fileID: 1103087628}
+--- !u!4 &923611894
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 923611891}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.9693899, y: -2.4141135, z: -0.6026051}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1040539025
 GameObject:
   m_ObjectHideFlags: 0
@@ -256,7 +317,6 @@ GameObject:
   - component: {fileID: 1172692812}
   - component: {fileID: 1172692809}
   - component: {fileID: 1172692808}
-  - component: {fileID: 1172692813}
   - component: {fileID: 1172692814}
   m_Layer: 0
   m_Name: NetworkHandler
@@ -291,6 +351,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerDataUnpacker: {fileID: 1172692808}
+  foodSpawner: {fileID: 923611892}
 --- !u!114 &1172692810
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -340,22 +401,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loginHandler: {fileID: 1172692810}
-  remotePlayerSpawner: {fileID: 1172692813}
---- !u!114 &1172692813
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1172692807}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62d3711df8149fc48b576841c1e9b228, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  remotePlayerPrefab: {fileID: 9029041994936869517, guid: fa361e0303bfc0448909b2ebd50a6af9, type: 3}
-  playerDataUnpacker: {fileID: 1172692808}
-  playerInformation: {fileID: 1103087628}
+  remotePlayerSpawner: {fileID: 923611893}
 --- !u!114 &1172692814
 MonoBehaviour:
   m_ObjectHideFlags: 0

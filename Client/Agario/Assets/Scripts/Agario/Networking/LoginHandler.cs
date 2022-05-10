@@ -13,10 +13,6 @@ namespace Agario.Networking
 {
     public class LoginHandler : MonoBehaviour
     {
-        public string ReturnMessage;
-        public string ReturnMessage2;
-        public string output;
-
         [SerializeField] private TcpConnection tcpConnection;
         [SerializeField] private UdpConnection udpConnection;
         [SerializeField] private PlayerInformation playerInformation;
@@ -48,8 +44,8 @@ namespace Agario.Networking
             if (TcpConnectionComplete.WaitOne(loginTimeOutInMS))
             {
                 // Todo: Temporary text output.
-                output =
-                    $"Welcome to the server {playerInformation.UserData.UserName}{playerInformation.UserData.id} with color {playerInformation.UserData.UserColor}";
+                // output =
+                //     $"Welcome to the server {playerInformation.UserData.UserName}{playerInformation.UserData.id} with color {playerInformation.UserData.UserColor}";
 
                 udpConnection.SetupUdpConnection(ipAddress, port);
                 udpConnection.SendPackage(new NetworkPackage<UserData>(PackageType.UserData, playerInformation.UserData));
