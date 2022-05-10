@@ -232,6 +232,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 564ef42d5fe5059499c4b689e0190979, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1103087632 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1751445314, guid: 1e9cf4674b69a6c4f892f0ac38377f89, type: 3}
+  m_PrefabInstance: {fileID: 6581774265528755167}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4cb39126b50a364f9ffd698c71157ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1172692807
 GameObject:
   m_ObjectHideFlags: 0
@@ -280,7 +291,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerDataUnpacker: {fileID: 1172692808}
-  temp: []
 --- !u!114 &1172692810
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -299,8 +309,9 @@ MonoBehaviour:
   tcpConnection: {fileID: 1172692812}
   udpConnection: {fileID: 1172692809}
   playerInformation: {fileID: 1103087628}
-  playerDataSender: {fileID: 1172692814}
   loginTimeOutInMS: 3000
+  playerDataSender: {fileID: 1172692814}
+  playerMovementInput: {fileID: 1103087632}
 --- !u!4 &1172692811
 Transform:
   m_ObjectHideFlags: 0
@@ -330,7 +341,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loginHandler: {fileID: 1172692810}
   remotePlayerSpawner: {fileID: 1172692813}
-  temp: []
 --- !u!114 &1172692813
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -353,7 +363,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1172692807}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fec2fc4fc656e4449b9317d3c389868a, type: 3}
   m_Name: 
