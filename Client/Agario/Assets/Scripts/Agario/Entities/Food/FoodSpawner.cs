@@ -19,7 +19,7 @@ namespace Agario.Entities.Food
                 {
                     foreach (var position in positions)
                     {
-                        var unityVector = new Vector3(position.X, position.Y, 0.01f);
+                        var unityVector = new Vector3(position.X, position.Y, 0);
                         Instantiate(foodPrefab, unityVector, quaternion.identity);
                     }
                 });

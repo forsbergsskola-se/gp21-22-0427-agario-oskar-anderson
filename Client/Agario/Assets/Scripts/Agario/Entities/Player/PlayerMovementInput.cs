@@ -34,7 +34,8 @@ namespace Agario.Entities.Player
         private bool TryGetWorldSpaceMousePosition(out Vector3 position)
         {
             var t = playerCamera.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(t, out RaycastHit hit))
+            LayerMask mask = LayerMask.GetMask("Background");
+            if (Physics.Raycast(t, out RaycastHit hit, 100f, mask))
             {
                 position = hit.point;
                 return true;
