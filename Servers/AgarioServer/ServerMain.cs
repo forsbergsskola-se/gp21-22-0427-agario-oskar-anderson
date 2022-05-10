@@ -1,4 +1,5 @@
-﻿using AgarioServer;
+﻿using System.Numerics;
+using AgarioServer;
 using AgarioServer.Data;
 using AgarioServer.Networking;
 
@@ -21,6 +22,7 @@ public class GameServer
     private const int MaxUpdateTime = 1000 / 60;
 
     private UdpBeacon udpBeacon;
+    private FoodControl foodControl = new(500);
     private InactivityChecker inactivityChecker;
     
 
@@ -92,9 +94,8 @@ public class GameServer
             lock (Players)
             {
                 SendUpdatedPlayerPositionsAndSizes();
-            
-            
-
+                
+                GenerateAndSendNewFoodPositions();
             }
             
             if (Timeout.IsCompleted)
@@ -123,6 +124,14 @@ public class GameServer
             new NetworkPackage<PlayerData[]>(PackageType.PlayerData, data);
 
         SendUdpPackageToAllClients(playersData);
+    }
+
+    private void GenerateAndSendNewFoodPositions()
+    {
+        if (foodControl.TrySpawnFood(out var foodPackage, 2))
+        {
+            SendUdpPackageToAllClients(foodPackage);
+        }
     }
 
     
