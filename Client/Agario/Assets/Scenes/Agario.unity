@@ -262,7 +262,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1040539025}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.5}
+  m_LocalPosition: {x: 0, y: 0, z: 0.02}
   m_LocalScale: {x: 100, y: 100, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -364,9 +364,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbdcf3ae400a7934a961b6f9520a665b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ReturnMessage: 
-  ReturnMessage2: 
-  output: 
   tcpConnection: {fileID: 1172692812}
   udpConnection: {fileID: 1172692809}
   playerInformation: {fileID: 1103087628}
@@ -402,6 +399,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loginHandler: {fileID: 1172692810}
   remotePlayerSpawner: {fileID: 923611893}
+  foodSpawner: {fileID: 923611892}
 --- !u!114 &1172692814
 MonoBehaviour:
   m_ObjectHideFlags: 0

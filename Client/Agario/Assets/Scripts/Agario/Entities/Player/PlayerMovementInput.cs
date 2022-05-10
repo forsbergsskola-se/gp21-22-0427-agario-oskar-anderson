@@ -19,6 +19,7 @@ namespace Agario.Entities.Player
         {
             if (TryGetWorldSpaceMousePosition(out Vector3 position))
             {
+                position.z = transform.position.z;
                 playerMovement.MoveTowards(position);
             }
         }
