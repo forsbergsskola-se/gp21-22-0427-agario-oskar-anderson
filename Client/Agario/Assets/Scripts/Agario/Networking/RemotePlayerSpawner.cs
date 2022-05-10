@@ -32,6 +32,17 @@ public class RemotePlayerSpawner : MonoBehaviour
         });
     }
 
+    public void DeSpawnRemotes(UserData userData)
+    {
+        actionQueue.Enqueue(() =>
+        {
+            Debug.Log("Removing user: " + userData.UserName + userData.id);
+            Destroy(playerDataUnpacker.currentRemotePlayers[userData.id].gameObject);
+            playerDataUnpacker.currentRemotePlayers.Remove(userData.id);
+            
+        });
+    }
+
     public Queue<Action> actionQueue = new();
 
 

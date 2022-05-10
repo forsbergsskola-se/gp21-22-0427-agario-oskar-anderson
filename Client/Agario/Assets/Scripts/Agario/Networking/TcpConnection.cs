@@ -53,6 +53,9 @@ public class TcpConnection : MonoBehaviour
                     case PackageType.NewUsers:
                         remotePlayerSpawner.SpawnRemotes(JsonUtility.FromJson<NetworkPackage<UserData[]>>(receivedJson).Value);
                         break;
+                    case PackageType.UserDisconnect:
+                        remotePlayerSpawner.DeSpawnRemotes(JsonUtility.FromJson<NetworkPackage<UserData>>(receivedJson).Value);
+                        break;
                 }
             }
             catch (SocketException)
