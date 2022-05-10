@@ -22,7 +22,7 @@ public class GameServer
     private const int MaxUpdateTime = 1000 / 60;
 
     private UdpBeacon udpBeacon;
-    public FoodControl foodControl = new(500);
+    public FoodControl foodControl = new(3);
     private InactivityChecker inactivityChecker;
     
 
@@ -126,6 +126,11 @@ public class GameServer
         SendUdpPackageToAllClients(playersData);
     }
 
+    
+    
+    /// <summary>
+    /// Tries to spawn new food and send them to the current players.
+    /// </summary>
     private void GenerateAndSendNewFoodPositions()
     {
         if (foodControl.TrySpawnFood(out var foodPackage, 2))
