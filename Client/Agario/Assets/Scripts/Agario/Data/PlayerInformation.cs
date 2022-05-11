@@ -1,19 +1,26 @@
+using Agario.Entities;
 using UnityEngine;
 
-using Agario.Data;
-
-
-
-public class PlayerInformation : MonoBehaviour
+namespace Agario.Data
 {
-    public PlayerData PlayerData;
-    public UserData UserData;
-
-
-
-    public void SetData2dPosition(Vector3 position)
+    public class PlayerInformation : MonoBehaviour
     {
-        PlayerData.XPosition = position.x;
-        PlayerData.YPosition = position.y;
+        public PlayerData PlayerData;
+        public UserData UserData;
+
+        [SerializeField] private Size size;
+
+
+        public void SetData2dPosition(Vector3 position)
+        {
+            PlayerData.XPosition = position.x;
+            PlayerData.YPosition = position.y;
+        }
+
+        public void AddToSize(int sizeToAdd)
+        {
+            PlayerData.Size += sizeToAdd;
+            size.SetSizeFromScore(PlayerData.Size);
+        }
     }
 }

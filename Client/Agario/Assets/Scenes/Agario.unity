@@ -318,6 +318,7 @@ GameObject:
   - component: {fileID: 1172692809}
   - component: {fileID: 1172692808}
   - component: {fileID: 1172692814}
+  - component: {fileID: 1172692815}
   m_Layer: 0
   m_Name: NetworkHandler
   m_TagString: Untagged
@@ -414,6 +415,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   udpConnection: {fileID: 1172692809}
   playerInformation: {fileID: 1103087628}
+--- !u!114 &1172692815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1172692807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b64b6878d621de4da1f9856bcb15478, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  udpConnection: {fileID: 0}
+  playerInformation: {fileID: 0}
 --- !u!1001 &6581774265528755167
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -421,9 +436,33 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2142217147365768325, guid: 1e9cf4674b69a6c4f892f0ac38377f89, type: 3}
+      propertyPath: m_Mass
+      value: 0.0001
+      objectReference: {fileID: 0}
+    - target: {fileID: -2142217147365768325, guid: 1e9cf4674b69a6c4f892f0ac38377f89, type: 3}
+      propertyPath: m_Simulated
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -2142217147365768325, guid: 1e9cf4674b69a6c4f892f0ac38377f89, type: 3}
+      propertyPath: m_AngularDrag
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -2142217147365768325, guid: 1e9cf4674b69a6c4f892f0ac38377f89, type: 3}
+      propertyPath: m_GravityScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3166257223373158664, guid: 1e9cf4674b69a6c4f892f0ac38377f89, type: 3}
       propertyPath: movementSpeed
       value: 0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 4447019565608300895, guid: 1e9cf4674b69a6c4f892f0ac38377f89, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4447019565608300895, guid: 1e9cf4674b69a6c4f892f0ac38377f89, type: 3}
+      propertyPath: m_UsedByEffector
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6581774266201722014, guid: 1e9cf4674b69a6c4f892f0ac38377f89, type: 3}
       propertyPath: m_RootOrder
@@ -477,5 +516,9 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7431497533533681466, guid: 1e9cf4674b69a6c4f892f0ac38377f89, type: 3}
+      propertyPath: eatenFoodSender
+      value: 
+      objectReference: {fileID: 1172692815}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e9cf4674b69a6c4f892f0ac38377f89, type: 3}
