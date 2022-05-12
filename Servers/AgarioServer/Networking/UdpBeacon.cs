@@ -30,9 +30,9 @@ public class UdpBeacon
         {
             Console.WriteLine("Udp: waiting for package...");
             IPEndPoint remoteEndpoint = null;
-            var Json = Encoding.UTF8.GetString(UdpClient.Receive(ref remoteEndpoint));
+            var receivedJson = Encoding.UTF8.GetString(UdpClient.Receive(ref remoteEndpoint));
             Console.WriteLine("Udp: received package...");
-            Console.WriteLine("Udp: " + Json);
+            Console.WriteLine("Udp: " + receivedJson);
 
             if (clientEndpoints.ContainsKey(remoteEndpoint))
             {
@@ -41,18 +41,24 @@ public class UdpBeacon
                 // TODO: We want to add a package id check to make sure the received package actually is a PlayerData one.
             
                 // TODO: This will eventually be replaced to handle a different data type for both food eaten and PlayerData
-            
-                var playerData = JsonSerializer.Deserialize<NetworkPackage<PlayerData>>(Json, serializeAllFields).Value;
-                clientEndpoints[remoteEndpoint].PlayerData = playerData;
+
+                var basePackage = JsonSerializer.Deserialize<NetworkPackage>(receivedJson, serializeAllFields);
+                switch (basePackage.Id)
+                {
+                    case PackageType.PlayerData:
+                        var playerData = JsonSerializer.Deserialize<NetworkPackage<PlayerData>>(receivedJson, serializeAllFields).Value;
+                        clientEndpoints[remoteEndpoint].PlayerData = playerData;
+                        break;
+                }
             }
             else
             {
                 Console.WriteLine("Udp: endpoint was not known, attempting to add...");
-                var package = JsonSerializer.Deserialize<NetworkPackage>(Json, serializeAllFields);
+                var package = JsonSerializer.Deserialize<NetworkPackage>(receivedJson, serializeAllFields);
 
                 if (package.Id == PackageType.UserData)
                 {
-                    var userData = JsonSerializer.Deserialize<NetworkPackage<UserData>>(Json, serializeAllFields).Value;
+                    var userData = JsonSerializer.Deserialize<NetworkPackage<UserData>>(receivedJson, serializeAllFields).Value;
 
                     var possibleConnectedPlayer = gameServer.PendingConnections.First(p => p.UserData.id == userData.id);
                     if (possibleConnectedPlayer != null)
