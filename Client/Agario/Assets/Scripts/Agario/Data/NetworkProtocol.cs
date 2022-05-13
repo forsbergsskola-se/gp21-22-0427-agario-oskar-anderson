@@ -20,5 +20,6 @@ namespace Agario.Data
         NewUsers = 6,
         UserDisconnect = 7,
         FoodSpawning = 8,
+        EatenFood = 9,
     }
 }

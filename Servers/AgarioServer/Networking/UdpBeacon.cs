@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Net.Sockets;
+using System.Numerics;
 using System.Text;
 using System.Text.Json;
 using AgarioServer.Data;
@@ -48,6 +49,10 @@ public class UdpBeacon
                     case PackageType.PlayerData:
                         var playerData = JsonSerializer.Deserialize<NetworkPackage<PlayerData>>(receivedJson, serializeAllFields).Value;
                         clientEndpoints[remoteEndpoint].PlayerData = playerData;
+                        break;
+                    case PackageType.EatenFood:
+                        var eatenFood = JsonSerializer.Deserialize<NetworkPackage<Vector2[]>>(receivedJson, serializeAllFields).Value;
+                        gameServer.foodControl.RemoveFood(eatenFood);
                         break;
                 }
             }
