@@ -11,7 +11,8 @@ namespace Agario.Data
 
     public enum PackageType
     {
-        Login = 0,
+        Empty = 0,
+        Login = 10,
         Disconnect = 1,
         UserData = 2,
         PlayerData = 3,

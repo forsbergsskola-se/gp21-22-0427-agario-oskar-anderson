@@ -45,6 +45,10 @@ public class TcpConnection
                 Console.WriteLine("Tcp: " + receivedJson);
 
                 var basePackage = JsonSerializer.Deserialize<NetworkPackage>(receivedJson, serializeAllFields);
+                
+                // If the package for some reason is wrong or empty then abort this iteration.
+                if (basePackage.Id == PackageType.Empty)
+                    return;
 
                 switch (basePackage.Id)
                 {

@@ -35,6 +35,15 @@ public class UdpBeacon
             Console.WriteLine("Udp: received package...");
             Console.WriteLine("Udp: " + receivedJson);
 
+            if (receivedJson == null)
+                return;
+            
+            var basePackage = JsonSerializer.Deserialize<NetworkPackage>(receivedJson, serializeAllFields);
+            
+            // If the package for some reason is wrong or empty then abort this iteration.
+            if (basePackage.Id == PackageType.Empty)
+                return;
+
             if (clientEndpoints.ContainsKey(remoteEndpoint))
             {
                 Console.WriteLine("Udp: endpoint was known, passing data to connected player...");
@@ -43,7 +52,7 @@ public class UdpBeacon
             
                 // TODO: This will eventually be replaced to handle a different data type for both food eaten and PlayerData
 
-                var basePackage = JsonSerializer.Deserialize<NetworkPackage>(receivedJson, serializeAllFields);
+                
                 switch (basePackage.Id)
                 {
                     case PackageType.PlayerData:
@@ -59,9 +68,9 @@ public class UdpBeacon
             else
             {
                 Console.WriteLine("Udp: endpoint was not known, attempting to add...");
-                var package = JsonSerializer.Deserialize<NetworkPackage>(receivedJson, serializeAllFields);
+                // var package = JsonSerializer.Deserialize<NetworkPackage>(receivedJson, serializeAllFields);
 
-                if (package.Id == PackageType.UserData)
+                if (basePackage.Id == PackageType.UserData)
                 {
                     var userData = JsonSerializer.Deserialize<NetworkPackage<UserData>>(receivedJson, serializeAllFields).Value;
 

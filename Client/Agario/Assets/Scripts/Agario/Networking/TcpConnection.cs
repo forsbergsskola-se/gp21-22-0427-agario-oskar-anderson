@@ -44,6 +44,9 @@ public class TcpConnection : MonoBehaviour
 
                 var basePackage = JsonUtility.FromJson<NetworkPackage>(receivedJson);
                 
+                // If the package for some reason is wrong or empty then abort this iteration.
+                if (basePackage.Id == PackageType.Empty)
+                    return;
 
                 switch (basePackage.Id)
                 {
