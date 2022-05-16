@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8756641941195606394}
   - component: {fileID: 6085432306111256216}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -288,6 +288,7 @@ MonoBehaviour:
     UserColor: {r: 0, g: 0, b: 0, a: 0}
     id: 0
   size: {fileID: 3059069072077199855}
+  bodyRenderer: {fileID: 0}
 --- !u!58 &4447019565608300895
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -350,7 +351,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6581774266554131230}
   - component: {fileID: 6581774266554131229}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Border
   m_TagString: Untagged
   m_Icon: {fileID: 0}

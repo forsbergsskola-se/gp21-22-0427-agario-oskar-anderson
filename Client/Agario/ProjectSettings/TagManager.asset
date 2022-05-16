@@ -9,13 +9,13 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Background
+  - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
+  - Background
+  - Outlines
+  - Food
+  - UserColors
   - 
   - 
   - 

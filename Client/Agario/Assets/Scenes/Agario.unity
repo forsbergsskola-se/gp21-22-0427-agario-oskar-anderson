@@ -197,7 +197,7 @@ GameObject:
   - component: {fileID: 1040539027}
   - component: {fileID: 1040539026}
   - component: {fileID: 1040539028}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -371,6 +371,7 @@ MonoBehaviour:
   udpConnection: {fileID: 1172692809}
   playerInformation: {fileID: 1103087628}
   loginTimeOutInMS: 3000
+  mainThreadQueue: {fileID: 1485014806}
   playerDataSender: {fileID: 1172692814}
   playerMovementInput: {fileID: 1103087632}
   eatenFoodSender: {fileID: 1172692815}
@@ -476,6 +477,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &1536402217 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 6085432306111256216, guid: 1e9cf4674b69a6c4f892f0ac38377f89, type: 3}
+  m_PrefabInstance: {fileID: 6581774265528755167}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6581774265528755167
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -499,6 +505,10 @@ PrefabInstance:
       propertyPath: m_GravityScale
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1103087628, guid: 1e9cf4674b69a6c4f892f0ac38377f89, type: 3}
+      propertyPath: bodyRenderer
+      value: 
+      objectReference: {fileID: 1536402217}
     - target: {fileID: 3166257223373158664, guid: 1e9cf4674b69a6c4f892f0ac38377f89, type: 3}
       propertyPath: movementSpeed
       value: 0.04

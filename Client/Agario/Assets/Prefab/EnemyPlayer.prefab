@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7150123289558805347}
   - component: {fileID: 2520711439363579892}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -232,7 +232,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9029041995289267571}
   - component: {fileID: 9029041995289267568}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Border
   m_TagString: Untagged
   m_Icon: {fileID: 0}
