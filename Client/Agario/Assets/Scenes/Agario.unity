@@ -371,6 +371,7 @@ MonoBehaviour:
   loginTimeOutInMS: 3000
   playerDataSender: {fileID: 1172692814}
   playerMovementInput: {fileID: 1103087632}
+  eatenFoodSender: {fileID: 1172692815}
 --- !u!4 &1172692811
 Transform:
   m_ObjectHideFlags: 0
@@ -427,8 +428,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b64b6878d621de4da1f9856bcb15478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  udpConnection: {fileID: 0}
-  playerInformation: {fileID: 0}
+  udpConnection: {fileID: 1172692809}
+  playerInformation: {fileID: 1103087628}
 --- !u!1001 &6581774265528755167
 PrefabInstance:
   m_ObjectHideFlags: 0
