@@ -9,7 +9,7 @@ namespace Agario.Data
         public UserData UserData;
 
         [SerializeField] private Size size;
-
+        [SerializeField] private SpriteRenderer bodyRenderer;
 
         public void SetData2dPosition(Vector3 position)
         {

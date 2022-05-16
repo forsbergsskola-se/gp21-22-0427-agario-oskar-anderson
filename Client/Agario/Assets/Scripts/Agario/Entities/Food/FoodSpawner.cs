@@ -8,6 +8,8 @@ namespace Agario.Entities.Food
     public class FoodSpawner : MonoBehaviour
     {
         [SerializeField] private GameObject foodPrefab;
+        [SerializeField] private MainThreadQueue mainThreadQueue;
+        
         private Queue<Action> spawnQueue = new();
 
 
@@ -15,7 +17,7 @@ namespace Agario.Entities.Food
         {
             lock (spawnQueue)
             {
-                spawnQueue.Enqueue(() =>
+                mainThreadQueue.ActionQueue.Enqueue(() =>
                 {
                     foreach (var position in positions)
                     {
@@ -23,17 +25,6 @@ namespace Agario.Entities.Food
                         Instantiate(foodPrefab, unityVector, quaternion.identity);
                     }
                 });
-            }
-        }
-
-        private void Update()
-        {
-            lock (spawnQueue)
-            {
-                for (int i = 0; i < spawnQueue.Count; i++)
-                {
-                    spawnQueue.Dequeue().Invoke();
-                }
             }
         }
     }

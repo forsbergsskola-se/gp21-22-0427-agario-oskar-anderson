@@ -11,12 +11,13 @@ public class RemotePlayerSpawner : MonoBehaviour
     [SerializeField] private GameObject remotePlayerPrefab;
     [SerializeField] private PlayerDataUnpacker playerDataUnpacker;
     [SerializeField] private PlayerInformation playerInformation;
+    [SerializeField] private MainThreadQueue mainThreadQueue;
     
     public Queue<Action> actionQueue = new();
     
     public void SpawnRemotes(UserData[] remotePlayersData)
     {
-        actionQueue.Enqueue(() =>
+        mainThreadQueue.ActionQueue.Enqueue(() =>
         {
             foreach (var userData in remotePlayersData)
             {
@@ -38,31 +39,13 @@ public class RemotePlayerSpawner : MonoBehaviour
 
     public void DeSpawnRemotes(UserData userData)
     {
-        actionQueue.Enqueue(() =>
+        
+        mainThreadQueue.ActionQueue.Enqueue(() =>
         {
             Debug.Log("Removing user: " + userData.UserName + userData.id);
             Destroy(playerDataUnpacker.currentRemotePlayers[userData.id].gameObject);
             playerDataUnpacker.currentRemotePlayers.Remove(userData.id);
             
         });
-    }
-    
-
-
-    private void FixedUpdate()
-    {
-        
-        // TODO: I am quite worried here that the position updates gets irregular because of fixed update not being perfectly synced with the server.
-        // Might be worth using a coroutine with wait handles and update positions right after they are available instead.
-        
-        
-        lock (actionQueue)
-        {
-            for (int i = 0; i < actionQueue.Count; i++)
-            {
-                actionQueue.Dequeue().Invoke();
-            }
-        }
-        
     }
 }
