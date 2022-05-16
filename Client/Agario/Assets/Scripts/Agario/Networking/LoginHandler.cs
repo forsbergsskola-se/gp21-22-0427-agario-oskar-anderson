@@ -18,6 +18,7 @@ namespace Agario.Networking
         [SerializeField] private UdpConnection udpConnection;
         [SerializeField] private PlayerInformation playerInformation;
         [SerializeField] private int loginTimeOutInMS;
+        [SerializeField] private MainThreadQueue mainThreadQueue;
 
         public EventWaitHandle TcpConnectionComplete = new(false, EventResetMode.ManualReset);
 
@@ -64,6 +65,9 @@ namespace Agario.Networking
         {
             playerInformation.UserData = userDataPackage.Value;
             playerInformation.PlayerData.PlayerId = playerInformation.UserData.id;
+
+            mainThreadQueue.ActionQueue.Enqueue(() => playerInformation.ApplyColor()); 
+            
             TcpConnectionComplete.Set();
         }
 
@@ -90,7 +94,7 @@ namespace Agario.Networking
         {
             // new Thread(TestConnectionTEMP).Start();
             // StartCoroutine(Login("192.168.1.248", 25565, "Oskar", new Color(23f, 21f, 100f)));
-            Login("192.168.1.248", 7777, "Oskar", new Color(23f, 21f, 100f));
+            Login("192.168.1.248", 7777, "Oskar", new Color(120f, 80f, 200f, 255f));
         }
         
         

@@ -22,5 +22,10 @@ namespace Agario.Data
             PlayerData.Size += sizeToAdd;
             size.SetSizeFromScore(PlayerData.Size);
         }
+
+        public void ApplyColor()
+        {
+            bodyRenderer.color = UserData.UserColor / 255;
+        }
     }
 }

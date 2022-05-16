@@ -22,7 +22,7 @@ namespace Agario.Entities.RemotePlayer
         public void ApplyUserData(UserData userData)
         {
             UserData = userData;
-            spriteRenderer.color = userData.UserColor;
+            spriteRenderer.color = userData.UserColor / 255;
         }
     }
 }
