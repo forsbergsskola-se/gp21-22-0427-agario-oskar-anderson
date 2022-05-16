@@ -6,6 +6,7 @@ using System.Threading;
 using UnityEngine;
 
 using Agario.Data;
+using Agario.Entities.Food;
 using Agario.Entities.Player;
 
 
@@ -69,10 +70,12 @@ namespace Agario.Networking
 
         [SerializeField] private PlayerDataSender playerDataSender;
         [SerializeField] private PlayerMovementInput playerMovementInput;
+        [SerializeField] private EatenFoodSender eatenFoodSender;
         
         private void EnableNetworkingObjects()
         {
             playerDataSender.enabled = true;
+            eatenFoodSender.enabled = true;
             playerMovementInput.enabled = true;
         }
 
