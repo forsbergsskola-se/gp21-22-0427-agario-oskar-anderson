@@ -63,6 +63,8 @@ public class GameServer
         
         SendTcpPackageToAllClients(newPlayerPackage);
     }
+    
+    
 
     public void RemovePlayerFromGameLoop(ConnectedPlayer player)
     {

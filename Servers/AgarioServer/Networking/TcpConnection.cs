@@ -48,7 +48,7 @@ public class TcpConnection
                 
                 // If the package for some reason is wrong or empty then abort this iteration.
                 if (basePackage.Id == PackageType.Empty)
-                    return;
+                    continue;
 
                 switch (basePackage.Id)
                 {

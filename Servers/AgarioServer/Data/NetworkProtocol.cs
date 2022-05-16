@@ -2,7 +2,7 @@
 
 public class NetworkProtocol
 {
-    public const int Port = 25565;
+    // public const int Port = 25565;
 }
 
 public enum PackageType
