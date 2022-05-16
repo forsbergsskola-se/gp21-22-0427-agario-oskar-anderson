@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Agario.Entities.RemotePlayer
 {
-    public class RemotePlayer : MonoBehaviour
+    public class RemoteUser : MonoBehaviour
     {
         [SerializeField] private Move playerMove;
         [SerializeField] private Size playerSize;

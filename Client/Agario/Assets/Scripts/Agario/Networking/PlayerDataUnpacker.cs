@@ -11,7 +11,7 @@ namespace Agario.Networking
     {
         [SerializeField] private PlayerInformation playerInformation;
         
-        public Dictionary<int, RemotePlayer> currentRemotePlayers = new();
+        public Dictionary<int, RemoteUser> currentRemotePlayers = new();
 
 
         public void UnpackRemotePlayersData(PlayerData[] remotePlayersData)

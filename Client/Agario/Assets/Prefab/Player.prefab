@@ -182,8 +182,9 @@ GameObject:
   - component: {fileID: 1751445315}
   - component: {fileID: 3059069072077199855}
   - component: {fileID: 1103087628}
-  - component: {fileID: 4447019565608300895}
   - component: {fileID: 7431497533533681466}
+  - component: {fileID: 2702113620591739478}
+  - component: {fileID: 4447019565608300895}
   - component: {fileID: -2142217147365768325}
   m_Layer: 0
   m_Name: Player
@@ -289,6 +290,33 @@ MonoBehaviour:
     id: 0
   size: {fileID: 3059069072077199855}
   bodyRenderer: {fileID: 0}
+--- !u!114 &7431497533533681466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6581774266201722080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2a3104f45cac6d429b4b3ec7f30e400, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eatenFoodSender: {fileID: 0}
+  playerInformation: {fileID: 1103087628}
+--- !u!114 &2702113620591739478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6581774266201722080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2e5893205882304c924cb8545e056fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerInformation: {fileID: 1103087628}
 --- !u!58 &4447019565608300895
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -305,21 +333,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.52
---- !u!114 &7431497533533681466
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6581774266201722080}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2a3104f45cac6d429b4b3ec7f30e400, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  eatenFoodSender: {fileID: 0}
-  playerInformation: {fileID: 1103087628}
-  size: {fileID: 3059069072077199855}
 --- !u!50 &-2142217147365768325
 Rigidbody2D:
   serializedVersion: 4
