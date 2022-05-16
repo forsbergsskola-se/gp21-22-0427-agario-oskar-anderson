@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using Agario.Data;
 using Agario.Networking;
 using UnityEngine;
@@ -9,6 +11,8 @@ namespace Agario.Entities.Food
         [SerializeField] private UdpConnection udpConnection;
         [SerializeField] private PlayerInformation playerInformation;
 
+        private List<AnnoyingFakeVector2> eatenFoodPositionList = new();
+        
         private void Start()
         {
             enabled = false;
@@ -18,6 +22,16 @@ namespace Agario.Entities.Food
         {
             Debug.Log("Food eaten at " + position);
             Debug.Log("Send this to the server!");
+            
+            eatenFoodPositionList.Add(new AnnoyingFakeVector2(position.x, position.y));
+        }
+
+        private void FixedUpdate()
+        {
+            var eatenFoodPackage =
+                new NetworkPackage<AnnoyingFakeVector2[]>(PackageType.EatenFood, eatenFoodPositionList.ToArray());
+            eatenFoodPositionList.Clear();
+            udpConnection.SendPackage(eatenFoodPackage);
         }
     }
 }
