@@ -1,7 +1,9 @@
 using System;
+using System.Collections;
 using Agario.Data;
 using UnityEngine;
 using Agario.Entities.RemotePlayer;
+using Random = UnityEngine.Random;
 
 
 namespace Agario.Entities.Player
@@ -10,6 +12,9 @@ namespace Agario.Entities.Player
     {
         [SerializeField] private PlayerInformation playerInformation;
         [SerializeField] private TcpConnection tcpConnection;
+        [SerializeField] private ResetPlayer userReset;
+
+        [SerializeField] private float respawnTime;
         
         private void OnTriggerStay2D(Collider2D other)
         {
@@ -32,15 +37,23 @@ namespace Agario.Entities.Player
                         Debug.Log("User ate a remote user! Sending this to server!");
                         var package = new NetworkPackage<PlayerData>(PackageType.EatenPlayer, otherPlayer.PlayerData);
                         tcpConnection.SendPackage(package);
-                        otherPlayer.gameObject.SetActive(false);
+                        otherPlayer.GetComponent<ResetPlayer>().HideAndReset();
                     }
                     else
                     {
                         Debug.Log("User was eaten by another user!");
-                        throw new NotImplementedException("Need to create a death screen or similar!");
+                        userReset.HideAndReset();
+                        StartCoroutine(RespawnTime());
                     }
                 }
             }
+        }
+
+        private IEnumerator RespawnTime()
+        {
+            yield return new WaitForSeconds(respawnTime);
+            userReset.Show();
+            transform.position = new Vector3(Random.Range(-49, 49), Random.Range(-49, 49), 0);
         }
     }
 }
