@@ -1,7 +1,11 @@
 
 namespace TNC
 {
-    public class TcpNode
+    internal class TcpNode
     {
+        public TcpNode()
+        {
+            
+        }
     }
 }

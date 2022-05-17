@@ -1,7 +1,7 @@
 
 namespace TNC
 {
-    public class UdpNode
+    internal class UdpNode
     {
     }
 }

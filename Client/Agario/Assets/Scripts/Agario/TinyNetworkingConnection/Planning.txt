@@ -22,6 +22,7 @@ General plannings:
 	Use async tasks to handle multiple connections at once, not threads! Build in cancelation tokens!
 	interfaces to logging and json serializers.
 	Option when creating instance to enable deep logging
+	When the server connection is stopped, transfer all server duties to the oldest connected client.
 	
 
 

@@ -1,6 +1,6 @@
 ﻿namespace TNC.Interfaces
 {
-    public interface IOutputLog
+    public interface IOutputLogger
     {
         /// <summary>
         /// Print the input value to the preferred logging tool.
