@@ -341,6 +341,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInformation: {fileID: 1103087628}
+  mainThreadQueue: {fileID: 1485014806}
 --- !u!114 &1172692809
 MonoBehaviour:
   m_ObjectHideFlags: 0
