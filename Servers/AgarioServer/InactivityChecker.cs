@@ -20,9 +20,9 @@ public class InactivityChecker
     {
         while (true)
         {
-            lock (gameServer.Players)
+            lock (gameServer.playerManager.Players)
             {
-                CheckForInactivity(gameServer.Players);
+                CheckForInactivity(gameServer.playerManager.Players);
             }
 
             KickInactivePlayers();

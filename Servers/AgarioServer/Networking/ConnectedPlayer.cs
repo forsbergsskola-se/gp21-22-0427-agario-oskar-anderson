@@ -37,13 +37,13 @@ public class ConnectedPlayer
 
     private void SendCurrentPlayers()
     {
-        if (gameServer.Players.Count == 0)
+        if (gameServer.playerManager.Players.Count == 0)
             return;
         
-        UserData[] userData = new UserData[gameServer.Players.Count];
+        UserData[] userData = new UserData[gameServer.playerManager.Players.Count];
         for (int i = 0; i < userData.Length; i++)
         {
-            userData[i] = gameServer.Players[i].UserData;
+            userData[i] = gameServer.playerManager.Players[i].UserData;
         }
 
         var currentUsersPackage = new NetworkPackage<UserData[]>(PackageType.NewUsers, userData);
