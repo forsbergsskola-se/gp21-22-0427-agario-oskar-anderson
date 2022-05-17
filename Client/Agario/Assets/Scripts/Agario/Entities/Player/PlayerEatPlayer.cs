@@ -1,3 +1,4 @@
+using System;
 using Agario.Data;
 using UnityEngine;
 using Agario.Entities.RemotePlayer;
@@ -8,6 +9,7 @@ namespace Agario.Entities.Player
     public class PlayerEatPlayer : MonoBehaviour
     {
         [SerializeField] private PlayerInformation playerInformation;
+        [SerializeField] private TcpConnection tcpConnection;
         
         private void OnTriggerStay2D(Collider2D other)
         {
@@ -27,11 +29,15 @@ namespace Agario.Entities.Player
                     // One player is completely hidden by another, and will be killed.
                     if (playerInformation.PlayerData.Size > otherPlayer.PlayerData.Size)
                     {
-                        Debug.Log("User ate a remote user! Send this to server!");
+                        Debug.Log("User ate a remote user! Sending this to server!");
+                        var package = new NetworkPackage<PlayerData>(PackageType.EatenPlayer, otherPlayer.PlayerData);
+                        tcpConnection.SendPackage(package);
+                        otherPlayer.gameObject.SetActive(false);
                     }
                     else
                     {
                         Debug.Log("User was eaten by another user!");
+                        throw new NotImplementedException("Need to create a death screen or similar!");
                     }
                 }
             }

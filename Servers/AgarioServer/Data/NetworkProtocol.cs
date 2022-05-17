@@ -8,7 +8,6 @@ public class NetworkProtocol
 public enum PackageType
 {
     Empty = 0,
-    Login = 10,
     Disconnect = 1,
     UserData = 2,
     PlayerData = 3,
@@ -18,4 +17,6 @@ public enum PackageType
     UserDisconnect = 7,
     FoodSpawning = 8,
     EatenFood = 9,
+    Login = 10,
+    EatenPlayer = 11,
 }
