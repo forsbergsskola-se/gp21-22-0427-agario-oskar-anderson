@@ -20,7 +20,7 @@ public class GameServer
     
     
     private const int MaxUpdateTime = 1000 / 60;
-    public PlayerManager playerManager = new PlayerManager();
+    public PlayerManager playerManager;
 
     private UdpBeacon udpBeacon;
     public FoodControl foodControl = new(500);
@@ -30,6 +30,7 @@ public class GameServer
     public void StartServer()
     { 
         udpBeacon = new UdpBeacon(this);
+        playerManager = new PlayerManager(this);
         
         // TODO: Disabled because of strange problems and the code being low priority.
         // inactivityChecker = new InactivityChecker(this);
@@ -151,7 +152,7 @@ public class GameServer
         await Task.Delay(MaxUpdateTime);
     }
 
-    private void SendTcpPackageToAllClients<T>(NetworkPackage<T> networkPackage)
+    public void SendTcpPackageToAllClients<T>(NetworkPackage<T> networkPackage)
     {
         foreach (var connectedPlayer in playerManager.Players)
         {
@@ -159,7 +160,7 @@ public class GameServer
         }
     }
 
-    private void SendUdpPackageToAllClients<T>(NetworkPackage<T> networkPackage)
+    public void SendUdpPackageToAllClients<T>(NetworkPackage<T> networkPackage)
     {
         foreach (var connectedPlayer in playerManager.Players)
         {

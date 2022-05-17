@@ -60,6 +60,14 @@ public class TcpConnection
                     case PackageType.Disconnect:
                         connectedPlayer.Disconnect();
                         return;
+                    case PackageType.EatenPlayer:
+                        var otherPlayer =
+                            JsonSerializer.Deserialize<NetworkPackage<PlayerData>>(receivedJson, serializeAllFields).Value;
+                        connectedPlayer.gameServer.playerManager.PlayerEatPlayer(connectedPlayer, otherPlayer);
+                        break;
+                    case PackageType.Show:
+                        connectedPlayer.gameServer.playerManager.PlayerRespawned(connectedPlayer.PlayerData);
+                        break;
                 }
             }
             catch (SocketException e)

@@ -1,4 +1,5 @@
 ﻿using System.Net.Sockets;
+using System.Numerics;
 using AgarioServer.Data;
 
 namespace AgarioServer.Networking;
@@ -6,14 +7,13 @@ namespace AgarioServer.Networking;
 public class ConnectedPlayer
 {
     public UserData UserData;
-    public PlayerData PlayerData = new PlayerData();
+    public PlayerData PlayerData = new();
     
-    private GameServer gameServer;
+    public GameServer gameServer;
 
     public UdpConnection UdpConnection;
     public TcpConnection TcpConnection;
-    
-    
+
 
     public ConnectedPlayer(TcpClient tcpClient, GameServer gameServer, UdpBeacon udpBeacon)
     {
