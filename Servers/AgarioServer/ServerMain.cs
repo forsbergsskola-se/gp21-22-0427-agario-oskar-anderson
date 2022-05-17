@@ -23,7 +23,7 @@ public class GameServer
     public PlayerManager playerManager;
 
     private UdpBeacon udpBeacon;
-    public FoodControl foodControl = new(500);
+    public FoodControl foodControl = new(2000);
     private InactivityChecker inactivityChecker;
     
 
