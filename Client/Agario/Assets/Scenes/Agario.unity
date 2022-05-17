@@ -488,6 +488,20 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6581774266201722080, guid: 1e9cf4674b69a6c4f892f0ac38377f89, type: 3}
   m_PrefabInstance: {fileID: 6581774265528755167}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1711171630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1711171621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d03177144eb256d44bf9d67c20277555, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  remoteUser: {fileID: 0}
+  playerInformation: {fileID: 1103087628}
 --- !u!1 &1720776648
 GameObject:
   m_ObjectHideFlags: 0
@@ -618,6 +632,10 @@ PrefabInstance:
       propertyPath: playerCamera
       value: 
       objectReference: {fileID: 1720776650}
+    - target: {fileID: 2702113620591739478, guid: 1e9cf4674b69a6c4f892f0ac38377f89, type: 3}
+      propertyPath: userReset
+      value: 
+      objectReference: {fileID: 1711171630}
     - target: {fileID: 2702113620591739478, guid: 1e9cf4674b69a6c4f892f0ac38377f89, type: 3}
       propertyPath: tcpConnection
       value: 
