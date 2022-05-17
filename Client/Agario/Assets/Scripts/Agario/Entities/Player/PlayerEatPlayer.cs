@@ -42,7 +42,7 @@ namespace Agario.Entities.Player
                     else
                     {
                         Debug.Log("User was eaten by another user!");
-                        userReset.HideAndReset();
+                        
                         StartCoroutine(RespawnTime());
                     }
                 }
@@ -51,9 +51,12 @@ namespace Agario.Entities.Player
 
         private IEnumerator RespawnTime()
         {
+            userReset.HideAndReset();
             yield return new WaitForSeconds(respawnTime);
             userReset.Show();
             transform.position = new Vector3(Random.Range(-49, 49), Random.Range(-49, 49), 0);
+            var package = new NetworkPackage<int>(PackageType.Show, playerInformation.PlayerData.PlayerId);
+            tcpConnection.SendPackage(package);
         }
     }
 }

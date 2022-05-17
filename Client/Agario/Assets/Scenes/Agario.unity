@@ -405,7 +405,7 @@ MonoBehaviour:
   loginHandler: {fileID: 1172692810}
   remotePlayerSpawner: {fileID: 923611893}
   foodSpawner: {fileID: 923611892}
-  playerDataUnpacker: {fileID: 0}
+  playerDataUnpacker: {fileID: 1172692808}
 --- !u!114 &1172692814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -636,6 +636,10 @@ PrefabInstance:
       propertyPath: userReset
       value: 
       objectReference: {fileID: 1711171630}
+    - target: {fileID: 2702113620591739478, guid: 1e9cf4674b69a6c4f892f0ac38377f89, type: 3}
+      propertyPath: respawnTime
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2702113620591739478, guid: 1e9cf4674b69a6c4f892f0ac38377f89, type: 3}
       propertyPath: tcpConnection
       value: 
