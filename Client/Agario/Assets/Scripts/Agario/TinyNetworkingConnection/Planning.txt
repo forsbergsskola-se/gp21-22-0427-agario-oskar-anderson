@@ -20,4 +20,14 @@ internal class TcpNode:
 
 General plannings:
 	Use async tasks to handle multiple connections at once, not threads! Build in cancelation tokens!
+	interfaces to logging and json serializers.
+	Option when creating instance to enable deep logging
+	
+
+
+
+
+
+
+
 
