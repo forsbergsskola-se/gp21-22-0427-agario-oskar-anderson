@@ -42,10 +42,10 @@ namespace Agario.Networking
                 {
                     remoteUser.GetComponent<ResetPlayer>().HideAndReset();
                 }
-                else if (playerId == playerInformation.PlayerData.PlayerId)
-                {
-                    playerInformation.GetComponent<ResetPlayer>().HideAndReset();
-                }
+                // else if (playerId == playerInformation.PlayerData.PlayerId)
+                // {
+                //     playerInformation.GetComponent<ResetPlayer>().HideAndReset();
+                // }
             });
         }
 

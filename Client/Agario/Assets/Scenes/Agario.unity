@@ -645,6 +645,10 @@ PrefabInstance:
       propertyPath: tcpConnection
       value: 
       objectReference: {fileID: 1172692812}
+    - target: {fileID: 2702113620591739478, guid: 1e9cf4674b69a6c4f892f0ac38377f89, type: 3}
+      propertyPath: mainThreadQueue
+      value: 
+      objectReference: {fileID: 1485014806}
     - target: {fileID: 3166257223373158664, guid: 1e9cf4674b69a6c4f892f0ac38377f89, type: 3}
       propertyPath: movementSpeed
       value: 0.04
