@@ -13,7 +13,6 @@ public class RemotePlayerSpawner : MonoBehaviour
     [SerializeField] private PlayerInformation playerInformation;
     [SerializeField] private MainThreadQueue mainThreadQueue;
     
-    public Queue<Action> actionQueue = new();
     
     public void SpawnRemotes(UserData[] remotePlayersData)
     {

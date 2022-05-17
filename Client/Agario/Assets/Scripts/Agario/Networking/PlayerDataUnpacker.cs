@@ -31,5 +31,29 @@ namespace Agario.Networking
                 currentRemotePlayers[remotePlayerData.PlayerId].PlayerData = remotePlayerData;
             }
         }
+
+        public void HandlePlayerHideRequest(int playerId)
+        {
+            if (currentRemotePlayers.TryGetValue(playerId, out var remoteUser))
+            {
+                remoteUser.GetComponent<ResetPlayer>().HideAndReset();
+            }
+            else if (playerId == playerInformation.PlayerData.PlayerId)
+            {
+                playerInformation.GetComponent<ResetPlayer>().HideAndReset();
+            }
+        }
+
+        public void HandlePlayerShowRequest(int playerId)
+        {
+            if (currentRemotePlayers.TryGetValue(playerId, out var remoteUser))
+            {
+                remoteUser.GetComponent<ResetPlayer>().Show();
+            }
+            else if (playerId == playerInformation.PlayerData.PlayerId)
+            {
+                playerInformation.GetComponent<ResetPlayer>().Show();
+            }
+        }
     }
 }
