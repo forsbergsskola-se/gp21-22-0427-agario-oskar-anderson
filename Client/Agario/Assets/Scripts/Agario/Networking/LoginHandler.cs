@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Linq;
 using System.Net.Sockets;
 using System.Threading;
 using UnityEngine;
@@ -8,6 +6,8 @@ using UnityEngine;
 using Agario.Data;
 using Agario.Entities.Food;
 using Agario.Entities.Player;
+
+using Random = UnityEngine.Random;
 
 
 namespace Agario.Networking
@@ -65,6 +65,10 @@ namespace Agario.Networking
         {
             playerInformation.UserData = userDataPackage.Value;
             playerInformation.PlayerData.PlayerId = playerInformation.UserData.id;
+            mainThreadQueue.ActionQueue.Enqueue(() =>
+            {
+                playerInformation.gameObject.transform.position = new Vector3(Random.Range(-49, 49), Random.Range(-49, 49), 0);
+            });
 
             mainThreadQueue.ActionQueue.Enqueue(() => playerInformation.ApplyColor()); 
             
