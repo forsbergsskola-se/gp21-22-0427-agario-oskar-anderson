@@ -25,7 +25,7 @@ namespace Agario.Data
 
         public void ApplyColor()
         {
-            bodyRenderer.color = UserData.UserColor / 255;
+            bodyRenderer.color = UserData.UserColor;
         }
     }
 }

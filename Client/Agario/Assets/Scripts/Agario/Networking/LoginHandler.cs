@@ -19,6 +19,7 @@ namespace Agario.Networking
         [SerializeField] private PlayerInformation playerInformation;
         [SerializeField] private int loginTimeOutInMS;
         [SerializeField] private MainThreadQueue mainThreadQueue;
+        [SerializeField] private LaunchData launchData;
 
         public EventWaitHandle TcpConnectionComplete = new(false, EventResetMode.ManualReset);
 
@@ -27,11 +28,11 @@ namespace Agario.Networking
         private PostLoginAttemptCode postLoginAttemptCode;
 
 
-        private bool ConnectToServer(string ipAddress, int port, string userName, Color color)
+        private bool ConnectToServer()
         {
             try
             {
-                tcpConnection.SetupTcpConnection(ipAddress, port);
+                tcpConnection.SetupTcpConnection(launchData.IpAddress, launchData.Port);
             }
             catch (SocketException)
             {
@@ -40,7 +41,7 @@ namespace Agario.Networking
                 return false;
             }
 
-            var loginPackage = new NetworkPackage<UserLoginPackage>(PackageType.Login, new UserLoginPackage(color, userName));
+            var loginPackage = new NetworkPackage<UserLoginPackage>(PackageType.Login, new UserLoginPackage(launchData.UserColor, launchData.UserName));
             tcpConnection.SendPackage(loginPackage);
 
             if (TcpConnectionComplete.WaitOne(loginTimeOutInMS))
@@ -49,7 +50,7 @@ namespace Agario.Networking
                 // output =
                 //     $"Welcome to the server {playerInformation.UserData.UserName}{playerInformation.UserData.id} with color {playerInformation.UserData.UserColor}";
 
-                udpConnection.SetupUdpConnection(ipAddress, port);
+                udpConnection.SetupUdpConnection(launchData.IpAddress, launchData.Port);
                 udpConnection.SendPackage(new NetworkPackage<UserData>(PackageType.UserData, playerInformation.UserData));
 
                 return true;
@@ -98,33 +99,35 @@ namespace Agario.Networking
         {
             // new Thread(TestConnectionTEMP).Start();
             // StartCoroutine(Login("192.168.1.248", 25565, "Oskar", new Color(23f, 21f, 100f)));
-            Login("192.168.1.248", 7777, "Oskar", new Color(120f, 80f, 200f, 255f));
+            Login();
         }
         
         
         
 
-        private void Login(string ipAddress, int port, string userName, Color color)
+        private void Login()
         {
             new Thread(() =>
             {
-                if (ConnectToServer(ipAddress, port, userName, color)) {
+                if (ConnectToServer()) {
                     postLoginAttemptCode = EnableNetworkingObjects;
                 }
                 else {
                     postLoginAttemptCode = ReturnToLoginScreenAfterFailedAttempt;
                 }
-                
+
+                mainThreadQueue.ActionQueue.Enqueue(() => postLoginAttemptCode());
+
             }).Start();
         }
 
-        private void FixedUpdate()
-        {
-            if (postLoginAttemptCode != null)
-            {
-                postLoginAttemptCode();
-                postLoginAttemptCode = null;
-            }
-        }
+        // private void FixedUpdate()
+        // {
+        //     if (postLoginAttemptCode != null)
+        //     {
+        //         postLoginAttemptCode();
+        //         postLoginAttemptCode = null;
+        //     }
+        // }
     }
 }
