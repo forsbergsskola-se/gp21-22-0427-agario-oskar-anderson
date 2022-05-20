@@ -31,6 +31,7 @@ namespace Agario.Networking
                 }
 
                 currentRemotePlayers[remotePlayerData.PlayerId].PlayerData = remotePlayerData;
+                currentRemotePlayers[remotePlayerData.PlayerId].NewPlayerDataAvailable.Set();
             }
         }
 

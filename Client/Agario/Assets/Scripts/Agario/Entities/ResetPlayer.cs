@@ -13,6 +13,7 @@ public class ResetPlayer : MonoBehaviour
         if (remotePlayer != null)
         {
             remotePlayer.PlayerData.Size = 0;
+            remotePlayer.LastPosition = Vector3.zero;
         }
 
         if (playerInformation != null)
