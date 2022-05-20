@@ -29,11 +29,11 @@ public class UdpBeacon
     {
         while (true)
         {
-            Console.WriteLine("Udp: waiting for package...");
+            // Console.WriteLine("Udp: waiting for package...");
             IPEndPoint remoteEndpoint = null;
             var receivedJson = Encoding.UTF8.GetString(UdpClient.Receive(ref remoteEndpoint));
-            Console.WriteLine("Udp: received package...");
-            Console.WriteLine("Udp: " + receivedJson);
+            // Console.WriteLine("Udp: received package...");
+            // Console.WriteLine("Udp: " + receivedJson);
 
             if (receivedJson == null)
                 return;
@@ -46,7 +46,7 @@ public class UdpBeacon
 
             if (clientEndpoints.ContainsKey(remoteEndpoint))
             {
-                Console.WriteLine("Udp: endpoint was known, passing data to connected player...");
+                // Console.WriteLine("Udp: endpoint was known, passing data to connected player...");
                 // If package sender is known: Set the correct playerdata to the package information.
                 // TODO: We want to add a package id check to make sure the received package actually is a PlayerData one.
             

@@ -26,7 +26,7 @@ public class UdpConnection
     public void SendUdpPackage<T>(NetworkPackage<T> networkPackage)
     {
         var json = JsonSerializer.Serialize(networkPackage, serializeAllFields);
-        Console.WriteLine("Udp send: " + json);
+        // Console.WriteLine("Udp send: " + json);
         var bytes = Encoding.UTF8.GetBytes(json);
         udpBeacon.UdpClient.Send(bytes, bytes.Length, PlayerEndpoint);
     }

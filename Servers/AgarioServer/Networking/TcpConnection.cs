@@ -42,7 +42,7 @@ public class TcpConnection
                 if (receivedJson == null)
                     return;
 
-                Console.WriteLine("Tcp: " + receivedJson);
+                // Console.WriteLine("Tcp: " + receivedJson);
 
                 var basePackage = JsonSerializer.Deserialize<NetworkPackage>(receivedJson, serializeAllFields);
                 
@@ -119,7 +119,7 @@ public class TcpConnection
     {
         string json = JsonSerializer.Serialize(networkPackage, serializeAllFields);
         streamWriter.WriteLine(json);
-        Console.WriteLine("Tcp send: " + JsonSerializer.Serialize(networkPackage, serializeAllFields));
+        // Console.WriteLine("Tcp send: " + JsonSerializer.Serialize(networkPackage, serializeAllFields));
         streamWriter.Flush();
     }
 }
