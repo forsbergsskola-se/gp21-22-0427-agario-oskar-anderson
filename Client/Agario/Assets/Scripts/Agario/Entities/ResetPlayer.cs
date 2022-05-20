@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using Agario.Data;
+using Agario.Entities;
 using Agario.Entities.RemotePlayer;
 using UnityEngine;
 
@@ -21,6 +20,7 @@ public class ResetPlayer : MonoBehaviour
             playerInformation.PlayerData.Size = 0;
         }
 
+        gameObject.GetComponent<Size>().SetSizeFromScore(0);
         gameObject.SetActive(false);
     }
 
