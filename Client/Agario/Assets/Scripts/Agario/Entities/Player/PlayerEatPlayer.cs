@@ -1,8 +1,8 @@
 using System;
 using System.Collections;
 using Agario.Data;
+using Agario.Entities.Remote_Player;
 using UnityEngine;
-using Agario.Entities.RemotePlayer;
 using Unity.Collections.LowLevel.Unsafe;
 using Random = UnityEngine.Random;
 
@@ -25,7 +25,7 @@ namespace Agario.Entities.Player
             {
                 // I would prefer to access this from a more central place so I wouldn't need to use get component
                 // this much. :/
-                var otherPlayer = other.GetComponent<RemoteUser>();
+                var otherPlayer = other.GetComponent<RemotePlayer>();
 
                 var maxDistanceBetweenCenterPoints =
                     Mathf.Abs(Size.GetTrueRadius(playerInformation.PlayerData.Size) - Size.GetTrueRadius(otherPlayer.PlayerData.Size));

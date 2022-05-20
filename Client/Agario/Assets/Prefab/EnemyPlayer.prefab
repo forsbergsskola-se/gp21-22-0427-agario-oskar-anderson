@@ -235,7 +235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d03177144eb256d44bf9d67c20277555, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  remoteUser: {fileID: 3315821376143046085}
+  remotePlayer: {fileID: 0}
   playerInformation: {fileID: 0}
 --- !u!1 &9029041995289267570
 GameObject:

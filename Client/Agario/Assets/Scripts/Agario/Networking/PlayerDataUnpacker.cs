@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Agario.Data;
-using Agario.Entities.RemotePlayer;
+using Agario.Entities.Remote_Player;
 using UnityEngine;
 
 
@@ -13,7 +13,7 @@ namespace Agario.Networking
         [SerializeField] private MainThreadQueue mainThreadQueue;
         
         
-        public Dictionary<int, RemoteUser> currentRemotePlayers = new();
+        public Dictionary<int, RemotePlayer> currentRemotePlayers = new();
 
 
         public void UnpackRemotePlayersData(PlayerData[] remotePlayersData)

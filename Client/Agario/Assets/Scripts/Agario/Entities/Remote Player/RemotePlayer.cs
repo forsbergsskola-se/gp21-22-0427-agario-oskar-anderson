@@ -1,9 +1,9 @@
 using Agario.Data;
 using UnityEngine;
 
-namespace Agario.Entities.RemotePlayer
+namespace Agario.Entities.Remote_Player
 {
-    public class RemoteUser : MonoBehaviour
+    public class RemotePlayer : MonoBehaviour
     {
         [SerializeField] private Move playerMove;
         [SerializeField] private Size playerSize;
@@ -22,7 +22,7 @@ namespace Agario.Entities.RemotePlayer
         public void ApplyUserData(UserData userData)
         {
             UserData = userData;
-            spriteRenderer.color = userData.UserColor / 255;
+            spriteRenderer.color = userData.UserColor;
         }
     }
 }

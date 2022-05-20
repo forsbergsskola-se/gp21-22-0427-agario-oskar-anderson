@@ -1,18 +1,18 @@
 using Agario.Data;
 using Agario.Entities;
-using Agario.Entities.RemotePlayer;
+using Agario.Entities.Remote_Player;
 using UnityEngine;
 
 public class ResetPlayer : MonoBehaviour
 {
-    [SerializeField] private RemoteUser remoteUser;
+    [SerializeField] private RemotePlayer remotePlayer;
     [SerializeField] private PlayerInformation playerInformation;
     
     public void HideAndReset()
     {
-        if (remoteUser != null)
+        if (remotePlayer != null)
         {
-            remoteUser.PlayerData.Size = 0;
+            remotePlayer.PlayerData.Size = 0;
         }
 
         if (playerInformation != null)

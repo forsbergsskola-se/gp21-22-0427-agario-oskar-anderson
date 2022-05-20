@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using Agario.Data;
-using Agario.Entities.RemotePlayer;
+using Agario.Entities.Remote_Player;
 using Agario.Networking;
 using UnityEngine;
 
@@ -24,7 +24,7 @@ public class RemotePlayerSpawner : MonoBehaviour
                     continue;
 
                 var remotePlayerObject = Instantiate(remotePlayerPrefab);
-                var remotePlayer = remotePlayerObject.GetComponent<RemoteUser>();
+                var remotePlayer = remotePlayerObject.GetComponent<RemotePlayer>();
                 remotePlayer.ApplyUserData(userData);
                 playerDataUnpacker.currentRemotePlayers.Add(userData.id, remotePlayer);
                 Debug.Log(userData.id);
