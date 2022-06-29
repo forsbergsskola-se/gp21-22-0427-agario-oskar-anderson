@@ -1,0 +1,128 @@
+Communication to the server with the users position happens on a set interval, maybe 30, or 15 hz.
+Same with communication back from the server.
+
+Server should only send player positions that has actually been updated.
+
+Player names over or inside the player bubbles.
+
+Player collides with food and eats it. A request is then sent to the server to check that it was actually in range to be eaten. (A form of anti cheat)
+The server then tells all other clients that that piece of food is gone.
+
+Serverside ConnectedPlayer objects need to have a isConnected field, or similar. Basically a way to stop and garbage collect the class when that player
+leaves or crashes or something else. Also applies to the threads! We do not want rouge while loops running in the background waiting for a package that
+will never arrive.
+
+Change networkpackage id to be of type networkprotocol.requestType.
+That way comparisons will get way easier.
+Also rename requesttype to packagetype
+
+
+
+Server sends out:
+	Food spawning orders together with their positions
+	If a piece of food is eaten.
+	Player positions
+	If a player is killed.
+
+Player sends out:
+	Current position.
+
+
+
+Server handles:
+	Deciding when a player eats another player or some food.
+	Player size calculations.
+
+	Comparing player speeds as a form of cheat detection. (?)
+
+
+Client handles:
+	Taking user input and moving their character.
+
+
+
+
+1st task:
+
+Connecting client to server timeline:
+
+1. Client sends a request to join by sending a tcp message with their username and a message identifier. (Just a number indicating what type of message it is)
+2. Options:
+	1. Server declines the request because the game is full. Go back to step 1.
+	2. Server accepts the request. Continue at step 3.
+3. The server sends a confirmation package.
+
+
+
+
+2nd task:
+
+Continue the server - client interaction.
+Modify confirmation package to include a randomly selected position and color for the user.
+
+
+
+3rd task:
+
+Create base game system for the server. A list of players and food objects.
+Any connecting client will automatically be added to the players list.
+And food objects shall be created on a set interval with randomised positions.
+
+
+
+4th task:
+
+Continue the server - client interaction.
+After the confimation package has been sent, send another package containing the information about all current players. 
+	Usernames, Colors, Sizes, and positions.
+
+
+
+5th task:
+
+Continue the server - client interaction.
+After the package about current players has been sent, send another package containing the information about all current food positions.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

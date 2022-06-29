@@ -1,0 +1,34 @@
+Public class connection:
+	The only interface with the library.
+	Will handle accepting commands, and giving out events.
+
+	Will coordinate handshakes between clients.
+
+
+
+internal class UdpNode:
+	Handles sending and receiving udp messages from and to any number of sources.
+	Handles all udp related errors and will invoke error events in the connection class in case of unfixable errors.
+
+
+internal class TcpNode:
+	Handles sending and receiving tcp messages from and to any number of sources.
+	Handles all tcp related errors and will invoke error events in the connection class in case of unfixable errors.
+	
+
+
+
+General plannings:
+	Use async tasks to handle multiple connections at once, not threads! Build in cancelation tokens!
+	interfaces to logging and json serializers.
+	Option when creating instance to enable deep logging
+	When the server connection is stopped, transfer all server duties to the oldest connected client.
+	
+
+
+
+
+
+
+
+
